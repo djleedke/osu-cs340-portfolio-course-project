@@ -2,5 +2,84 @@
 {% extends 'base.html' %}
 {% set active_page = 'index' %}
 {% block content %}
-    <div class="container">Index Page</div>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-lg-5">
+                <div class="ms-5 me-5">
+                    <h2 class="text-center">Overview</h2>
+                    <p class="text-center mt-3">
+                        Fine Midwestern Dining owns up to 10 high-end restaurants in a city.  The company would like to create a recipe repository to share amongst its chefs 
+                        and management team.  The idea is that chefs can use it to look up recipes from each other and gain inspiration to create more.  Management can use the 
+                        database to look at star ratings of dishes and use that data to market appropriately.  
+                    </p>
+                    <p class="text-center">
+                        The repository would include recipe data about ingredients and combinations of recipes that form dishes.  Each recipe is created by a chef, which holds 
+                        a position of either head chef or sous chef.  Each chef works at a single restaurant.  We estimate that there will be roughly 40-50 active users w/ 
+                        approximately 5-10 original recipes per Chef.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h2 class="text-center mb-3">Tables</h2>
+                <div class="row">
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/chefs">chefs</a></h5>
+                                <p class="card-text">{{ context['chefs'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/dishes">dishes</a></h5>
+                                <p class="card-text">{{ context['dishes'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/dish-has-recipe">dish_has_recipe</a></h5>
+                                <p class="card-text">{{ context['dish_has_recipe'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/ingredients">ingredients</a></h5>
+                                <p class="card-text">{{ context['ingredients'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/recipes">recipes</a></h5>
+                                <p class="card-text">{{ context['recipes'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/recipe-has-ingredient">recipe_has_ingredient</a></h5>
+                                <p class="card-text">{{ context['recipe_has_ingredient'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-container mb-3 col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="/restaurants">restaurants</a></h5>
+                                <p class="card-text">{{ context['restaurants'] }} row(s)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
