@@ -15,7 +15,27 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('pages/index.html')
+
+@app.route('/chefs')
+def chefs():
+    return render_template('pages/chefs.html')
+
+@app.route('/dishes')
+def dishes():
+    return render_template('pages/dishes.html')
+
+@app.route('/ingredients')
+def ingredients():
+    return render_template('pages/ingredients.html')
+
+@app.route('/recipes')
+def recipes():
+    return render_template('pages/recipes.html')
+
+@app.route('/restaurants')
+def restaurants():
+    return render_template('pages/restaurants.html')
 
 if __name__ == '__main__':
 

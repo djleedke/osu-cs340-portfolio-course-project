@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
     <!-- Page Content -->
     {% block content %}{% endblock %}
     <!-- Footer -->
