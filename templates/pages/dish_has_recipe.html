@@ -2,5 +2,27 @@
 {% extends 'base.html' %}
 {% set active_page = 'dish_has_recipe' %}
 {% block content %}
-    <div class="container">Dish_has_recipe Page</div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-6 offset-3">
+                <h4 class="text-center">dish_has_recipe</h4>
+                <table class="mt-3 table table-striped table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>dish_id</th>
+                            <th>recipe_id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in context %}
+                        <tr>
+                            <td>{{ row.dish_id }}</td>
+                            <td>{{ row.recipe_id }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

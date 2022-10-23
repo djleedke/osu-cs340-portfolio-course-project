@@ -37,7 +37,7 @@ INSERT INTO dishes (name) VALUES
 
 -- dish_has_recipe --
 
-INSERT INTO dish_has_ recipe (dish_id, recipe_id) VALUES 
+INSERT INTO dish_has_recipe (dish_id, recipe_id) VALUES 
     (1, 2),
     (1, 6),
     (2, 7),

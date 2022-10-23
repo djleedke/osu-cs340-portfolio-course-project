@@ -48,7 +48,22 @@ def dishes():
 
 @app.route('/dish-has-recipe')
 def dish_has_recipe():
-    return render_template('pages/dish_has_recipe.html')
+
+    context = {}
+
+    try:
+        # Getting counts from each table to display the # of rows
+        cursor = mysql.connection.cursor()
+        query = (
+            "SELECT * FROM dish_has_recipe" 
+        )
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/dish_has_recipe.html', context=context)
 
 @app.route('/ingredients')
 def ingredients():
@@ -60,7 +75,22 @@ def recipes():
 
 @app.route('/recipe-has-ingredient')
 def recipe_has_ingredient():
-    return render_template('pages/recipe_has_ingredient.html')
+
+    context = {}
+
+    try:
+        # Getting counts from each table to display the # of rows
+        cursor = mysql.connection.cursor()
+        query = (
+            "SELECT * FROM recipe_has_ingredient" 
+        )
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/recipe_has_ingredient.html', context=context)
 
 @app.route('/restaurants')
 def restaurants():

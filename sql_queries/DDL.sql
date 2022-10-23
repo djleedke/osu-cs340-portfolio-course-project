@@ -1,4 +1,4 @@
--- MariaDB dump 10.19  Distrib 10.4.25-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.19  Distrib 10.6.8-MariaDB, for Linux (x86_64)
 --
 -- Host: classmysql.engr.oregonstate.edu    Database: cs340_leedked
 -- ------------------------------------------------------
@@ -71,6 +71,7 @@ CREATE TABLE `dish_has_recipe` (
 
 LOCK TABLES `dish_has_recipe` WRITE;
 /*!40000 ALTER TABLE `dish_has_recipe` DISABLE KEYS */;
+INSERT INTO `dish_has_recipe` VALUES (1,2),(2,5),(1,6),(2,7);
 /*!40000 ALTER TABLE `dish_has_recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +224,7 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-18 18:25:47
+-- Dump completed on 2022-10-23 14:31:24
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

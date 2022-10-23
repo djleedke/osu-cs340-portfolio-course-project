@@ -2,5 +2,31 @@
 {% extends 'base.html' %}
 {% set active_page = 'recipe_has_ingredient' %}
 {% block content %}
-    <div class="container">Recipe_has_ingredient Page</div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-6 offset-3">
+                <h4 class="text-center">recipe_has_ingredient</h4>
+                <table class="mt-3 table table-striped table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>recipe_id</th>
+                            <th>ingredient_id</th>
+                            <th>quantity</th>
+                            <th>measurement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in context %}
+                        <tr>
+                            <td>{{ row.recipe_id }}</td>
+                            <td>{{ row.ingredient_id }}</td>
+                            <td>{{ row.quantity }}</td>
+                            <td>{{ row.measurement }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
