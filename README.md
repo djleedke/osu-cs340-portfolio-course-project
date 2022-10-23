@@ -1,24 +1,39 @@
-# osu-cs340-course-project
+# Fine Midwestern Dining
 
+## Useful Links
 
-## Bash Commands
+[OSU Flask Guide](https://github.com/osu-cs340-ecampus/flask-starter-app)
+
+## Python Commands
+
+Create virtual environment:
+```
+$ python3 -m venv venv
+```
 
 Start virtual environment:
 ```
-source/bin/activate
+$ source venv/bin/activate
 ```
 
-Start localhost server:
+Install required modules:
 ```
-python app.py
+$ pip3 install -r requirements.txt
 ```
+
+Start localhost (Development):
+```
+$ python3 app.py
+```
+
+## Server Commands
 
 Start gunicorn (Production):
 ```
-gunicorn -b 0.0.0.0:<PORT NUMBER>
+$ gunicorn -b 0.0.0.0:<PORT NUMBER> -D app:app
 ```
 
 Kill gunicorn:
 ```
-pkill -u <osu_id> gunicorn
+$ pkill -u <osu_id> gunicorn
 ```

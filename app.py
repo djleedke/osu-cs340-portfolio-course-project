@@ -15,8 +15,8 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return "<h1>Recipe App</h1>"
+    return render_template('index.html')
 
 if __name__ == '__main__':
 
-    app.run(port=62132, debug = True)
+    app.run(port=62134, debug=True)
