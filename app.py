@@ -40,11 +40,35 @@ def index():
 
 @app.route('/chefs')
 def chefs():
-    return render_template('pages/chefs.html')
+
+    context = {}
+
+    try:
+        cursor = mysql.connection.cursor()
+        query = ("SELECT * FROM chefs")
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/chefs.html', context=context)
 
 @app.route('/dishes')
 def dishes():
-    return render_template('pages/dishes.html')
+
+    context = {}
+
+    try:
+        cursor = mysql.connection.cursor()
+        query = ("SELECT * FROM dishes")
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/dishes.html', context=context)
 
 @app.route('/dish-has-recipe')
 def dish_has_recipe():
@@ -52,7 +76,6 @@ def dish_has_recipe():
     context = {}
 
     try:
-        # Getting counts from each table to display the # of rows
         cursor = mysql.connection.cursor()
         query = (
             "SELECT * FROM dish_has_recipe" 
@@ -67,11 +90,35 @@ def dish_has_recipe():
 
 @app.route('/ingredients')
 def ingredients():
-    return render_template('pages/ingredients.html')
+
+    context = {}
+
+    try:
+        cursor = mysql.connection.cursor()
+        query = ("SELECT * FROM ingredients")
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/ingredients.html', context=context)
 
 @app.route('/recipes')
 def recipes():
-    return render_template('pages/recipes.html')
+
+    context = {}
+
+    try:
+        cursor = mysql.connection.cursor()
+        query = ("SELECT * FROM recipes")
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/recipes.html', context=context)
 
 @app.route('/recipe-has-ingredient')
 def recipe_has_ingredient():
@@ -79,7 +126,6 @@ def recipe_has_ingredient():
     context = {}
 
     try:
-        # Getting counts from each table to display the # of rows
         cursor = mysql.connection.cursor()
         query = (
             "SELECT * FROM recipe_has_ingredient" 
@@ -94,7 +140,21 @@ def recipe_has_ingredient():
 
 @app.route('/restaurants')
 def restaurants():
-    return render_template('pages/restaurants.html')
+
+    context = {}
+
+    try:
+        cursor = mysql.connection.cursor()
+        query = (
+            "SELECT * FROM restaurants" 
+        )
+
+        cursor.execute(query)
+        context = cursor.fetchall()
+    except Exception as e:
+        print(e)
+
+    return render_template('pages/restaurants.html', context=context)
 
 if __name__ == '__main__':
 

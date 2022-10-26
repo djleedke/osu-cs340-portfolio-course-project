@@ -4,7 +4,8 @@
 
 [Database Outline - Google Doc](https://docs.google.com/document/d/1r1YOmKD8Faw_jGJnt9fxkOBgoKmawmMp_ffnnMa_sSY/edit)\
 [OSU Flask Guide](https://github.com/osu-cs340-ecampus/flask-starter-app)\
-[Boostrap v5.0 Documentation](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+[CS 340 Project Guide](https://canvas.oregonstate.edu/courses/1890458/pages/cs340-project-guide)\
+[Bootstrap v5.0 Documentation](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
 ## Python Commands
 
