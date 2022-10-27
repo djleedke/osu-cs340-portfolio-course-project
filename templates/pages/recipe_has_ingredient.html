@@ -3,29 +3,78 @@
 {% set active_page = 'recipe_has_ingredient' %}
 {% block content %}
     <div class="container">
-        <div class="row mt-5">
-            <div class="col-6 offset-3">
-                <h4 class="text-center">recipe_has_ingredient</h4>
-                <table class="mt-3 table table-striped table-hover text-center">
-                    <thead>
-                        <tr>
-                            <th>recipe_id</th>
-                            <th>ingredient_id</th>
-                            <th>quantity</th>
-                            <th>measurement</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in context %}
-                        <tr>
-                            <td>{{ row.recipe_id }}</td>
-                            <td>{{ row.ingredient_id }}</td>
-                            <td>{{ row.quantity }}</td>
-                            <td>{{ row.measurement }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="col-lg-4 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add an Ingredient to a Recipe</h5>
+                        <form class="mt-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="ingredient">Ingredient</label>
+                                    <select id="inputRecipe" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option>Chicken Breast</option>
+                                        <option>Spaghetti</option>
+                                        <option>Egg</option>
+                                        <option>White Rice</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label for="recipe">Recipe</label>
+                                    <select id="inputRecipe" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option>Chicken Carbonara</option>
+                                        <option>Meatloaf</option>
+                                        <option>California Rolls</option>
+                                        <option>Caprese Salad</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <label for="quantity">Quantity</label>
+                                    <input type="number" class="form-control" id="inputQuantity" min="0">
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <label for="measurement">Measurement</label>
+                                    <select id="inputMeasurement" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option>cups</option>
+                                        <option>lbs</option>
+                                        <option>units</option>
+                                        <option>pieces</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex flex-row-reverse col-12">
+                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 card mt-4">
+                <div class="card-body">
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>recipe_id</th>
+                                <th>ingredient_id</th>
+                                <th>quantity</th>
+                                <th>measurement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in context %}
+                            <tr>
+                                <td>{{ row.recipe_id }}</td>
+                                <td>{{ row.ingredient_id }}</td>
+                                <td>{{ row.quantity }}</td>
+                                <td>{{ row.measurement }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
