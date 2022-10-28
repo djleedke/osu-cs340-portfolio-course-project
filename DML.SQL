@@ -1,3 +1,5 @@
+-- The character ':' will be used to denote variables that will be passed into the query.
+
 ----- Restaurants Table -----
 
 -- get all restaurants
