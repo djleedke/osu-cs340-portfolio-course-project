@@ -58,10 +58,10 @@ CREATE TABLE `dish_has_recipe` (
   `dish_id` int(11) NOT NULL,
   `recipe_id` int(11) NOT NULL,
   PRIMARY KEY (`recipe_id`,`dish_id`),
-  KEY `fk_dish_has_ recipe_ recipe1_idx` (`recipe_id`),
-  KEY `fk_dish_has_ recipe_dish1_idx` (`dish_id`),
-  CONSTRAINT `fk_dish_has_ recipe_ recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_dish_has_ recipe_dish1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_dish_has_recipe_recipe1_idx` (`recipe_id`),
+  KEY `fk_dish_has_recipe_dish1_idx` (`dish_id`),
+  CONSTRAINT `fk_dish_has_recipe_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dish_has_recipe_dish1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -71,7 +71,11 @@ CREATE TABLE `dish_has_recipe` (
 
 LOCK TABLES `dish_has_recipe` WRITE;
 /*!40000 ALTER TABLE `dish_has_recipe` DISABLE KEYS */;
-INSERT INTO `dish_has_recipe` VALUES (1,2),(2,5),(1,6),(2,7);
+INSERT INTO `dish_has_recipe` VALUES 
+(1,2),
+(2,5),
+(1,6),
+(2,7);
 /*!40000 ALTER TABLE `dish_has_recipe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,13 +141,13 @@ DROP TABLE IF EXISTS `recipe_has_ingredient`;
 CREATE TABLE `recipe_has_ingredient` (
   `recipe_id` int(11) NOT NULL,
   `ingredient_id` int(11) NOT NULL,
-  `quantity` decimal(10,0) NOT NULL,
+  `quantity` decimal(10,1) NOT NULL,
   `measurement` varchar(50) NOT NULL,
   PRIMARY KEY (`recipe_id`,`ingredient_id`),
-  KEY `fk_ recipe_has_ingredient_ingredient1_idx` (`ingredient_id`),
-  KEY `fk_ recipe_has_ingredient_ recipe1_idx` (`recipe_id`),
-  CONSTRAINT `fk_ recipe_has_ingredient_ recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_recipe_has_ingredient_ingredient1_idx` (`ingredient_id`),
+  KEY `fk_recipe_has_ingredient_recipe1_idx` (`recipe_id`),
+  CONSTRAINT `fk_recipe_has_ingredient_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -153,7 +157,7 @@ CREATE TABLE `recipe_has_ingredient` (
 
 LOCK TABLES `recipe_has_ingredient` WRITE;
 /*!40000 ALTER TABLE `recipe_has_ingredient` DISABLE KEYS */;
-INSERT INTO `recipe_has_ingredient` VALUES (1,1,4,'cups'),(1,2,1,'lb'),(1,3,3,'units'),(3,4,2,'cups'),(3,5,8,'pieces'),(7,4,2,'cups');
+INSERT INTO `recipe_has_ingredient` VALUES (1,1,4,'cups'),(1,2,1.5,'lb'),(1,3,3,'units'),(3,4,2,'cups'),(3,5,8,'pieces'),(7,4,2,'cups');
 /*!40000 ALTER TABLE `recipe_has_ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,8 +178,8 @@ CREATE TABLE `recipes` (
   `description` longtext DEFAULT NULL,
   PRIMARY KEY (`recipe_id`),
   UNIQUE KEY `recipe_id_UNIQUE` (`recipe_id`),
-  KEY `fk_ recipes_chefs1_idx` (`chef_id`),
-  CONSTRAINT `fk_ recipes_chefs1` FOREIGN KEY (`chef_id`) REFERENCES `chefs` (`chef_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_recipes_chefs1_idx` (`chef_id`),
+  CONSTRAINT `fk_recipes_chefs1` FOREIGN KEY (`chef_id`) REFERENCES `chefs` (`chef_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
