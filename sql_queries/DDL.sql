@@ -1,30 +1,28 @@
--- MariaDB dump 10.19  Distrib 10.6.8-MariaDB, for Linux (x86_64)
---
--- Host: classmysql.engr.oregonstate.edu    Database: cs340_leedked
--- ------------------------------------------------------
--- Server version	10.6.9-MariaDB-log
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `chefs`
---
 
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
+-- Table structure for table `restaurants`
+
+DROP TABLE IF EXISTS `restaurants`;
+CREATE TABLE `restaurants` (
+  `restaurant_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`restaurant_id`),
+  UNIQUE KEY `restaurant_id_UNIQUE` (`restaurant_id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+);
+
+-- Inserting `restaurants` data
+
+INSERT INTO `restaurants` VALUES 
+(1, "D&D\'s"),
+(2, "David\'s Fine Diner"),
+(3, "Doug\'s Bistro");
+
+-- Table structure for table `chefs`
+
 DROP TABLE IF EXISTS `chefs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chefs` (
   `chef_id` int(11) NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(11) NOT NULL,
@@ -34,140 +32,38 @@ CREATE TABLE `chefs` (
   UNIQUE KEY `chef_id_UNIQUE` (`chef_id`),
   KEY `fk_chefs_restaurants1_idx` (`restaurant_id`),
   CONSTRAINT `fk_chefs_restaurants1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
---
--- Dumping data for table `chefs`
---
+-- Inserting `chefs` data
 
-LOCK TABLES `chefs` WRITE;
-/*!40000 ALTER TABLE `chefs` DISABLE KEYS */;
-INSERT INTO `chefs` VALUES (13,1,'Doug Leedke','Head Chef'),(14,1,'Marcos Miller','Sous Chef'),(15,2,'David Harlan','Head Chef'),(16,2,'Lewis Griffith','Sous Chef'),(17,3,'Melissa Mcdonald','Head Chef'),(18,3,'Matt Robins','Sous Chef');
-/*!40000 ALTER TABLE `chefs` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `chefs` VALUES 
+(1,(SELECT restaurant_id FROM restaurants WHERE name="Doug\'s Bistro"),'Doug Leedke','Head Chef'),
+(2,(SELECT restaurant_id FROM restaurants WHERE name="D&D\'s"),'Marcos Miller','Sous Chef'),
+(3,(SELECT restaurant_id FROM restaurants WHERE name="David\'s Fine Diner"),'David Harlan','Head Chef'),
+(4,(SELECT restaurant_id FROM restaurants WHERE name="David\'s Fine Diner"),'Lewis Griffith','Sous Chef'),
+(5,(SELECT restaurant_id FROM restaurants WHERE name="Doug\'s Bistro"),'Melissa Mcdonald','Head Chef'),
+(6,(SELECT restaurant_id FROM restaurants WHERE name="Doug\'s Bistro"),'Matt Robins','Sous Chef');
 
---
--- Table structure for table `dish_has_recipe`
---
-
-DROP TABLE IF EXISTS `dish_has_recipe`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dish_has_recipe` (
-  `dish_id` int(11) NOT NULL,
-  `recipe_id` int(11) NOT NULL,
-  PRIMARY KEY (`recipe_id`,`dish_id`),
-  KEY `fk_dish_has_recipe_recipe1_idx` (`recipe_id`),
-  KEY `fk_dish_has_recipe_dish1_idx` (`dish_id`),
-  CONSTRAINT `fk_dish_has_recipe_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_dish_has_recipe_dish1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dish_has_recipe`
---
-
-LOCK TABLES `dish_has_recipe` WRITE;
-/*!40000 ALTER TABLE `dish_has_recipe` DISABLE KEYS */;
-INSERT INTO `dish_has_recipe` VALUES 
-(1,2),
-(2,5),
-(1,6),
-(2,7);
-/*!40000 ALTER TABLE `dish_has_recipe` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `dishes`
---
 
 DROP TABLE IF EXISTS `dishes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dishes` (
   `dish_id` int(11) NOT NULL AUTO_INCREMENT,
   `rating` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`dish_id`),
   UNIQUE KEY `dish_id_UNIQUE` (`dish_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
---
--- Dumping data for table `dishes`
---
+-- Inserting `dishes` data
 
-LOCK TABLES `dishes` WRITE;
-/*!40000 ALTER TABLE `dishes` DISABLE KEYS */;
-INSERT INTO `dishes` VALUES (5,NULL,'Meatloaf w/ Truffle Fries'),(6,NULL,'Firecracker Chicken & Steamed White Rice');
-/*!40000 ALTER TABLE `dishes` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `dishes` VALUES 
+(1, 3,'Meatloaf w/ Truffle Fries'),
+(2, NULL,'Firecracker Chicken & Steamed White Rice');
 
---
--- Table structure for table `ingredients`
---
-
-DROP TABLE IF EXISTS `ingredients`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ingredients` (
-  `ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  PRIMARY KEY (`ingredient_id`),
-  UNIQUE KEY `ingredient_id_UNIQUE` (`ingredient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ingredients`
---
-
-LOCK TABLES `ingredients` WRITE;
-/*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
-INSERT INTO `ingredients` VALUES (15,'Chicken Breast','Protein'),(16,'Spaghetti','Grain'),(17,'Egg','Protein'),(18,'White Rice','Grain'),(19,'Crab','Protein'),(20,'Water','Other'),(21,'Garlic','Herbs & Spices');
-/*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `recipe_has_ingredient`
---
-
-DROP TABLE IF EXISTS `recipe_has_ingredient`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `recipe_has_ingredient` (
-  `recipe_id` int(11) NOT NULL,
-  `ingredient_id` int(11) NOT NULL,
-  `quantity` decimal(10,1) NOT NULL,
-  `measurement` varchar(50) NOT NULL,
-  PRIMARY KEY (`recipe_id`,`ingredient_id`),
-  KEY `fk_recipe_has_ingredient_ingredient1_idx` (`ingredient_id`),
-  KEY `fk_recipe_has_ingredient_recipe1_idx` (`recipe_id`),
-  CONSTRAINT `fk_recipe_has_ingredient_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `recipe_has_ingredient`
---
-
-LOCK TABLES `recipe_has_ingredient` WRITE;
-/*!40000 ALTER TABLE `recipe_has_ingredient` DISABLE KEYS */;
-INSERT INTO `recipe_has_ingredient` VALUES (1,1,4,'cups'),(1,2,1.5,'lb'),(1,3,3,'units'),(3,4,2,'cups'),(3,5,8,'pieces'),(7,4,2,'cups');
-/*!40000 ALTER TABLE `recipe_has_ingredient` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `recipes`
---
 
 DROP TABLE IF EXISTS `recipes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `recipes` (
   `recipe_id` int(11) NOT NULL AUTO_INCREMENT,
   `chef_id` int(11) NOT NULL,
@@ -180,55 +76,86 @@ CREATE TABLE `recipes` (
   UNIQUE KEY `recipe_id_UNIQUE` (`recipe_id`),
   KEY `fk_recipes_chefs1_idx` (`chef_id`),
   CONSTRAINT `fk_recipes_chefs1` FOREIGN KEY (`chef_id`) REFERENCES `chefs` (`chef_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+);
 
---
--- Dumping data for table `recipes`
---
+-- Inserting `recipes` data
 
-LOCK TABLES `recipes` WRITE;
-/*!40000 ALTER TABLE `recipes` DISABLE KEYS */;
-INSERT INTO `recipes` VALUES (8,5,'Chicken Carbonara','Italian',1,0,NULL),(9,4,'Meatloaf','American',2,0,NULL),(10,2,'California Rolls','Japanese',1,0,NULL),(11,6,'Caprese Salad','Italian',1,1,NULL),(12,3,'Firecracker Chicken','Asian',5,0,NULL),(13,1,'Truffle Fries','American',1,0,NULL),(14,2,'Steamed White Rice','Asian',1,0,NULL);
-/*!40000 ALTER TABLE `recipes` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `recipes` VALUES 
+(1, (SELECT chef_id FROM chefs WHERE name='Melissa Mcdonald') ,'Chicken Carbonara','Italian',1,0,NULL),
+(2, (SELECT chef_id FROM chefs WHERE name='Lewis Griffith'),'Meatloaf','American',2,0,NULL),
+(3, (SELECT chef_id FROM chefs WHERE name='Marcos Miller'),'California Rolls','Japanese',1,0,NULL),
+(4, (SELECT chef_id FROM chefs WHERE name='Matt Robins'),'Caprese Salad','Italian',1,1,NULL),
+(5, (SELECT chef_id FROM chefs WHERE name='David Harlan'),'Firecracker Chicken','Asian',5,0,NULL),
+(6, (SELECT chef_id FROM chefs WHERE name='Doug Leedke'),'Truffle Fries','American',1,0,NULL),
+(7, (SELECT chef_id FROM chefs WHERE name='Marcos Miller'),'Steamed White Rice','Asian',1,0,NULL);
 
---
--- Table structure for table `restaurants`
---
+-- Table structure for table `dish_has_recipe`
 
-DROP TABLE IF EXISTS `restaurants`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `restaurants` (
-  `restaurant_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `dish_has_recipe`;
+CREATE TABLE `dish_has_recipe` (
+  `dish_id` int(11) NOT NULL,
+  `recipe_id` int(11) NOT NULL,
+  PRIMARY KEY (`recipe_id`,`dish_id`),
+  KEY `fk_dish_has_recipe_recipe1_idx` (`recipe_id`),
+  KEY `fk_dish_has_recipe_dish1_idx` (`dish_id`),
+  CONSTRAINT `fk_dish_has_recipe_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dish_has_recipe_dish1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE CASCADE ON UPDATE NO ACTION
+);
+
+-- Inserting `dish_has_recipe` data
+
+INSERT INTO `dish_has_recipe` VALUES 
+((SELECT dish_id FROM dishes WHERE name='Meatloaf w/ Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Meatloaf')),
+((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Firecracker Chicken')),
+((SELECT dish_id FROM dishes WHERE name='Meatloaf w/ Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Truffle Fries')),
+((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Steamed White Rice'));
+
+-- Table structure for table `ingredients`
+
+DROP TABLE IF EXISTS `ingredients`;
+CREATE TABLE `ingredients` (
+  `ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`restaurant_id`),
-  UNIQUE KEY `restaurant_id_UNIQUE` (`restaurant_id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY (`ingredient_id`),
+  UNIQUE KEY `ingredient_id_UNIQUE` (`ingredient_id`)
+);
 
---
--- Dumping data for table `restaurants`
---
+-- Inserting `ingredient` data
 
-LOCK TABLES `restaurants` WRITE;
-/*!40000 ALTER TABLE `restaurants` DISABLE KEYS */;
-INSERT INTO `restaurants` VALUES (9,'D&D\'s'),(8,'David\'s Fine Diner'),(7,'Doug\'s Bistro');
-/*!40000 ALTER TABLE `restaurants` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `ingredients` VALUES 
+(1,'Chicken Breast','Protein'),
+(2,'Spaghetti','Grain'),
+(3,'Egg','Protein'),
+(4,'White Rice','Grain'),
+(5,'Crab','Protein'),
+(6,'Water','Other'),
+(7,'Garlic','Herbs & Spices');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- Table structure for table `recipe_has_ingredient`
 
--- Dump completed on 2022-10-23 14:31:24
+DROP TABLE IF EXISTS `recipe_has_ingredient`;
+CREATE TABLE `recipe_has_ingredient` (
+  `recipe_id` int(11) NOT NULL,
+  `ingredient_id` int(11) NOT NULL,
+  `quantity` decimal(10,1) NOT NULL,
+  `measurement` varchar(50) NOT NULL,
+  PRIMARY KEY (`recipe_id`,`ingredient_id`),
+  KEY `fk_recipe_has_ingredient_ingredient1_idx` (`ingredient_id`),
+  KEY `fk_recipe_has_ingredient_recipe1_idx` (`recipe_id`),
+  CONSTRAINT `fk_recipe_has_ingredient_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Inserting `recipe_has_ingredient` data
+
+INSERT INTO `recipe_has_ingredient` VALUES 
+((SELECT recipe_id FROM recipes WHERE name='Chicken Carbonara'), (SELECT ingredient_id FROM ingredients WHERE name='Chicken Breast'), 4, 'cups'),
+((SELECT recipe_id FROM recipes WHERE name='Chicken Carbonara'), (SELECT ingredient_id FROM ingredients WHERE name='Spaghetti'),1.5,'lb'),
+((SELECT recipe_id FROM recipes WHERE name='Chicken Carbonara'), (SELECT ingredient_id FROM ingredients WHERE name='Egg'),3,'units'),
+((SELECT recipe_id FROM recipes WHERE name='California Rolls'), (SELECT ingredient_id FROM ingredients WHERE name='White Rice'),2,'cups'),
+((SELECT recipe_id FROM recipes WHERE name='California Rolls'), (SELECT ingredient_id FROM ingredients WHERE name='Crab'),8,'pieces'),
+((SELECT recipe_id FROM recipes WHERE name='Steamed White Rice'), (SELECT ingredient_id FROM ingredients WHERE name='White Rice'),2,'cups');
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
