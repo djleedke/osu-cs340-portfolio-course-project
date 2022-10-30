@@ -8,7 +8,7 @@ def execute_query(mysql, query):
         cursor = mysql.connection.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
-
+        cursor.connection.commit()
     except Exception as e:
         print(e)
 
@@ -35,6 +35,16 @@ def get_all_chefs(mysql):
     """Returns all rows from the chefs table."""
 
     query = ("SELECT * FROM chefs")
+    return execute_query(mysql, query)
+
+def insert_chef(mysql, chef):
+    """Inserts a chef into the chefs table.  Must provide a chef dictionary that contains the table attributes."""
+
+    query = (
+        "INSERT INTO chefs (name, position, restaurant_id)"
+        f" VALUES ('{chef['name']}', '{chef['position']}', {chef['restaurant']});"
+    )
+
     return execute_query(mysql, query)
 
 # ---------- dishes ----------

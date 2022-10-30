@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 from flask_mysqldb import MySQL
 import config, database as db
 
@@ -27,8 +27,20 @@ def chefs():
         'chefs': chefs,
         'restaurants' : restaurants
     }
-    
+
     return render_template('pages/chefs.html', context=context)
+
+@app.route('/chefs/insert', methods=['POST'])
+def insert_chef():
+
+    chef = {
+        'name': request.form['name'],
+        'position' : request.form['position'],
+        'restaurant' : request.form['restaurant']
+    }
+
+    db.insert_chef(mysql, chef)
+    return redirect(url_for('chefs'))
 
 @app.route('/dishes')
 def dishes():
