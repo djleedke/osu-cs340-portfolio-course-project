@@ -19,7 +19,15 @@ def index():
 
 @app.route('/chefs')
 def chefs():
-    context = db.get_all_chefs(mysql)
+
+    chefs = db.get_all_chefs(mysql)
+    restaurants = db.get_all_restaurants(mysql)
+
+    context = {
+        'chefs': chefs,
+        'restaurants' : restaurants
+    }
+    
     return render_template('pages/chefs.html', context=context)
 
 @app.route('/dishes')
