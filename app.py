@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_mysqldb import MySQL
-import config
+import config, database as db
 
 app = Flask(__name__)
 
@@ -14,146 +14,42 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-
-    context = {}
-
-    try:
-        # Getting counts from each table to display the # of rows
-        cursor = mysql.connection.cursor()
-        query = (
-            "SELECT" 
-            "(SELECT COUNT(*) FROM chefs) as chefs,"
-            "(SELECT COUNT(*) FROM dishes) as dishes,"
-            "(SELECT COUNT(*) FROM dish_has_recipe) as dish_has_recipe,"
-            "(SELECT COUNT(*) FROM ingredients) as ingredients,"
-            "(SELECT COUNT(*) FROM recipes) as recipes,"
-            "(SELECT COUNT(*) FROM recipe_has_ingredient) as recipe_has_ingredient,"
-            "(SELECT COUNT(*) FROM restaurants) as restaurants"
-        )
-
-        cursor.execute(query)
-        context = cursor.fetchall()[0]
-    except Exception as e:
-        print(e)
-
+    context = db.get_table_counts(mysql)[0]
     return render_template('pages/index.html', context=context)
 
 @app.route('/chefs')
 def chefs():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = ("SELECT * FROM chefs")
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_chefs(mysql)
     return render_template('pages/chefs.html', context=context)
 
 @app.route('/dishes')
 def dishes():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = ("SELECT * FROM dishes")
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_dishes(mysql)
     return render_template('pages/dishes.html', context=context)
 
 @app.route('/dish-has-recipe')
 def dish_has_recipe():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = (
-            "SELECT * FROM dish_has_recipe" 
-        )
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_dish_has_recipe(mysql)
     return render_template('pages/dish_has_recipe.html', context=context)
 
 @app.route('/ingredients')
 def ingredients():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = ("SELECT * FROM ingredients")
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_ingredients(mysql)
     return render_template('pages/ingredients.html', context=context)
 
 @app.route('/recipes')
 def recipes():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = ("SELECT * FROM recipes")
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_recipes(mysql)
     return render_template('pages/recipes.html', context=context)
 
 @app.route('/recipe-has-ingredient')
 def recipe_has_ingredient():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = (
-            "SELECT * FROM recipe_has_ingredient" 
-        )
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_recipe_has_ingredient(mysql)
     return render_template('pages/recipe_has_ingredient.html', context=context)
 
 @app.route('/restaurants')
 def restaurants():
-
-    context = {}
-
-    try:
-        cursor = mysql.connection.cursor()
-        query = (
-            "SELECT * FROM restaurants" 
-        )
-
-        cursor.execute(query)
-        context = cursor.fetchall()
-    except Exception as e:
-        print(e)
-
+    context = db.get_all_restaurants(mysql)
     return render_template('pages/restaurants.html', context=context)
 
 if __name__ == '__main__':
