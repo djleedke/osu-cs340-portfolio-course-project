@@ -25,13 +25,12 @@ INSERT INTO `restaurants` VALUES
 DROP TABLE IF EXISTS `chefs`;
 CREATE TABLE `chefs` (
   `chef_id` int(11) NOT NULL AUTO_INCREMENT,
-  `restaurant_id` int(11) NOT NULL,
+  `restaurant_id` int(11),
   `name` varchar(255) NOT NULL,
   `position` varchar(50) NOT NULL,
   PRIMARY KEY (`chef_id`),
   UNIQUE KEY `chef_id_UNIQUE` (`chef_id`),
-  KEY `fk_chefs_restaurants1_idx` (`restaurant_id`),
-  CONSTRAINT `fk_chefs_restaurants1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
 );
 
 -- Inserting `chefs` data
@@ -143,7 +142,7 @@ CREATE TABLE `recipe_has_ingredient` (
   PRIMARY KEY (`recipe_id`,`ingredient_id`),
   KEY `fk_recipe_has_ingredient_ingredient1_idx` (`ingredient_id`),
   KEY `fk_recipe_has_ingredient_recipe1_idx` (`recipe_id`),
-  CONSTRAINT `fk_recipe_has_ingredient_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recipe_has_ingredient_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
