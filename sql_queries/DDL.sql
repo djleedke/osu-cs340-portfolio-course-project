@@ -59,7 +59,8 @@ CREATE TABLE `dishes` (
 
 INSERT INTO `dishes` VALUES 
 (1, 3,'Meatloaf w/ Truffle Fries'),
-(2, NULL,'Firecracker Chicken & Steamed White Rice');
+(2, NULL,'Firecracker Chicken & Steamed White Rice'),
+(3, NULL, 'Chicken Carbonara & Caprese Salad');
 
 -- Table structure for table `recipes`
 
