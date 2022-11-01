@@ -55,6 +55,10 @@ DELETE FROM chefs WHERE chef_id = :chef_id_from_input;
 -- get all recipes
 SELECT * FROM recipes;
 
+-- search recipes by name
+SELECT * FROM recipes
+WHERE recipes.name LIKE "% :recipe_name_input %";
+
 -- add a new recipe
 INSERT INTO recipes (name, cuisine, heat_level, gluten_free, description)
     VALUES (:name, :cuisine, :heat_level, :gluten_free, :description);
