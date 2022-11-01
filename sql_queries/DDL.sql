@@ -41,7 +41,8 @@ INSERT INTO `chefs` VALUES
 (3,(SELECT restaurant_id FROM restaurants WHERE name="David\'s Fine Diner"),'David Harlan','Head Chef'),
 (4,(SELECT restaurant_id FROM restaurants WHERE name="David\'s Fine Diner"),'Lewis Griffith','Sous Chef'),
 (5,(SELECT restaurant_id FROM restaurants WHERE name="Doug\'s Bistro"),'Melissa Mcdonald','Head Chef'),
-(6,(SELECT restaurant_id FROM restaurants WHERE name="Doug\'s Bistro"),'Matt Robins','Sous Chef');
+(6,(SELECT restaurant_id FROM restaurants WHERE name="Doug\'s Bistro"),'Matt Robins','Sous Chef'),
+(7, NULL, 'Mandy Barnard', 'Sous Chef');
 
 -- Table structure for table `dishes`
 
