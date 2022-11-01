@@ -109,7 +109,10 @@ INSERT INTO `dish_has_recipe` VALUES
 ((SELECT dish_id FROM dishes WHERE name='Meatloaf w/ Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Meatloaf')),
 ((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Firecracker Chicken')),
 ((SELECT dish_id FROM dishes WHERE name='Meatloaf w/ Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Truffle Fries')),
-((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Steamed White Rice'));
+((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Steamed White Rice')),
+((SELECT dish_id FROM dishes WHERE name='Chicken Carbonara & Caprese Salad'), (SELECT recipe_id FROM recipes WHERE name='Chicken Carbonara')),
+((SELECT dish_id FROM dishes WHERE name='Chicken Carbonara & Caprese Salad'), (SELECT recipe_id FROM recipes WHERE name='Caprese Salad'));
+
 
 -- Table structure for table `ingredients`
 
