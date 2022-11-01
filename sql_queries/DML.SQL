@@ -129,11 +129,11 @@ VALUES (:recipe_id_input, :ingredient_id_input, :quantity_input, :measurement_in
 UPDATE recipe_has_ingredient
 SET recipe_id = :recipe_id_input, ingredient_id = :ingredient_id_input,
 quantity = :quantity_input, measurement = :measurement_input
-WHERE recipe_has_ingredient_id = :recipe_has_ingredient_id_input; -- Need to make this id?
+WHERE recipe_id = :recipe_id_input AND ingredient_id = :ingredient_id_input; -- Need to make this id?
 
 -- delete ingredient for a recipe
 DELETE FROM recipe_has_ingredient
-WHERE recipe_has_ingredient_id =:recipe_has_ingredient_id_input; -- Need to make this id?
+WHERE recipe_id = :recipe_id_input AND ingredient_id = :ingredient_id_input;
 
 
 ----- Dish_Has_Recipe Table -----
@@ -144,10 +144,10 @@ SELECT * FROM dish_has_recipe;
 -- associate a dish with recipes (M-to-M relationship addition)
 INSERT INTO dish_has_recipe (dish_id, recipe_id) 
 VALUES (:dish_id_input, :recipe_id_input)
-WHERE dish_has_recipe_id = :dish_has_recipe_id_input; -- Need to make this id?
+WHERE dish_id = :dish_id_input AND recipe_id = :recipe_id_input;
 
 -- update a dish_has_recipe entry
 UPDATE dish_has_recipe
 SET dish_id = :dish_id_input, recipe_id = :recipe_id_input
-WHERE dish_has_recipe_id = :dish_has_recipe_id_input; -- Need to make this id?
+WHERE dish_id = :dish_id_input AND recipe_id = :recipe_id_input;
 
