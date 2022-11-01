@@ -143,8 +143,7 @@ SELECT * FROM dish_has_recipe;
 
 -- associate a dish with recipes (M-to-M relationship addition)
 INSERT INTO dish_has_recipe (dish_id, recipe_id) 
-VALUES (:dish_id_input, :recipe_id_input)
-WHERE dish_id = :dish_id_input AND recipe_id = :recipe_id_input;
+VALUES (:dish_id_input, :recipe_id_input);
 
 -- update a dish_has_recipe entry
 UPDATE dish_has_recipe
