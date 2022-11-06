@@ -145,3 +145,10 @@ def insert_restaurant(mysql, restaurant):
     )
 
     return execute_query(mysql, query)
+
+def delete_restaurant(mysql, restaurant_id):
+    """Deletes a restaurant from the restaurants table for the specified restaurant_id."""
+
+    query = (f"DELETE FROM restaurants WHERE restaurant_id = {restaurant_id}")
+
+    return execute_query(mysql, query)
