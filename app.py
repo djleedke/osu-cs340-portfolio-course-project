@@ -106,6 +106,11 @@ def insert_restaurant():
     db.insert_restaurant(mysql, restaurant)
     return redirect(url_for('restaurants'))
 
+@app.route('/restaurants/delete', methods=['DELETE'])
+def delete_restaurant():
+    result = db.delete_restaurant(mysql, request.json['restaurant_id'])
+    return jsonify(result)
+
 if __name__ == '__main__':
 
     app.run(port=62134, debug=True)
