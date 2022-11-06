@@ -113,14 +113,20 @@ def get_all_recipes(mysql):
         "SELECT recipes.*, chefs.name as chef_name FROM recipes "
             "LEFT JOIN chefs ON chefs.chef_id=recipes.recipe_id;"
     )
-    
+
     return execute_query(mysql, query)
 
 # --------- recipe_has_ingredient ---------
 def get_all_recipe_has_ingredient(mysql):
     """Returns all rows from the recipe_has_ingredient table."""
 
-    query = ("SELECT * FROM recipe_has_ingredient")
+    query = (
+        "SELECT recipe_has_ingredient.*, recipes.name as recipe_name, ingredients.name as ingredient_name "
+        "FROM recipe_has_ingredient "
+            "LEFT JOIN recipes ON recipes.recipe_id=recipe_has_ingredient.recipe_id "
+            "LEFT JOIN ingredients ON ingredients.ingredient_id=recipe_has_ingredient.ingredient_id;"    
+    )
+
     return execute_query(mysql, query)
 
 # ---------- restaurants ----------
