@@ -63,8 +63,8 @@ def update_chef():
 
 @app.route('/chefs/delete', methods=['DELETE'])
 def delete_chef():
-    db.delete_chef(mysql, request.json['chef_id'])
-    return redirect(url_for('chefs'))
+    result = db.delete_chef(mysql, request.json['chef_id'])
+    return jsonify(result)
 
 @app.route('/dishes')
 def dishes():

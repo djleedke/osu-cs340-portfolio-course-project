@@ -57,6 +57,9 @@ DELETE FROM chefs WHERE chef_id = :chef_id_from_input;
 -- get all recipes
 SELECT * FROM recipes;
 
+-- get all recipes w/ chef name included
+SELECT recipes.*, chefs.name as chef_name FROM recipes LEFT JOIN chefs ON chefs.chef_id=recipes.recipe_id;
+
 -- search recipes by name
 SELECT * FROM recipes
 WHERE recipes.name LIKE "% :recipe_name_input %";
@@ -122,6 +125,11 @@ WHERE dish_id = :dish_id_input;
 
 -- get table
 SELECT * FROM recipe_has_ingredient;
+
+-- get table w/ ingredient & recipe names
+SELECT recipe_has_ingredient.*, recipes.name as recipe_name, ingredients.name as ingredient_name FROM recipe_has_ingredient 
+	LEFT JOIN recipes ON recipes.recipe_id=recipe_has_ingredient.recipe_id
+    LEFT JOIN ingredients ON ingredients.ingredient_id=recipe_has_ingredient.ingredient_id;
 
 -- associate a recipe with ingredients (M-to-M relationship addition)
 INSERT INTO recipe_has_ingredient (recipe_id, ingredient_id, quantity, measurement) 

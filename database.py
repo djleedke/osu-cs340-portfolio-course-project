@@ -73,7 +73,6 @@ def update_chef(mysql, chef):
 def delete_chef(mysql, chef_id):
     """Deletes a chef from the chefs table for the specified chef_id."""
 
-    print(chef_id)
     query = (f"DELETE FROM chefs WHERE chef_id = {chef_id}")
 
     return execute_query(mysql, query)
