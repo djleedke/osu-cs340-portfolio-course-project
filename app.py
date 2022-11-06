@@ -96,6 +96,16 @@ def restaurants():
     context = db.get_all_restaurants(mysql)
     return render_template('pages/restaurants.html', context=context)
 
+@app.route('/restaurants/insert', methods=['POST'])
+def insert_restaurant():
+
+    restaurant = {
+        'name': request.form['name']
+    }
+
+    db.insert_restaurant(mysql, restaurant)
+    return redirect(url_for('restaurants'))
+
 if __name__ == '__main__':
 
     app.run(port=62134, debug=True)
