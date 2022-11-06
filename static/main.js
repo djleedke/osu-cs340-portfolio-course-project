@@ -35,6 +35,8 @@ let deleteChef = (chefId) => {
             'Content-Type' : 'application/json'
         },
         body: JSON.stringify({ 'chef_id' : chefId })
-    }).then(location.reload());
+    }).then(() => {
+        location.reload()
+    });
 
 }
