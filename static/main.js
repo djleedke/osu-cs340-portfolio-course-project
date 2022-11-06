@@ -40,3 +40,23 @@ let deleteChef = (chefId) => {
     });
 
 }
+
+/**
+ * Sends a DELETE request for the provided restaurantId, 
+ * removes it from the database, and reloads the page.
+ * 
+ * @param {string} restaurantId 
+ */
+let deleteRestaurant = (restaurantId) => {
+
+    fetch("/restaurants/delete", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ 'restaurant_id' : restaurantId })
+    }).then(() => {
+        location.reload()
+    });
+
+}
