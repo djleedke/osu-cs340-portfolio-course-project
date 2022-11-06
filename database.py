@@ -134,3 +134,14 @@ def get_all_restaurants(mysql):
     
     query = ("SELECT * FROM restaurants")
     return execute_query(mysql, query)
+
+
+def insert_restaurant(mysql, restaurant):
+    """Inserts a new restaurant into the restaurants table.  Must provide a restaurant dictionary that contains the table attributes."""
+
+    query = (
+        "INSERT INTO restaurants (name)"
+        f" VALUES ('{restaurant['name']}');"
+    )
+
+    return execute_query(mysql, query)
