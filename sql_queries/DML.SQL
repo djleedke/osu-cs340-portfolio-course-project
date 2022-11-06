@@ -26,11 +26,13 @@ DELETE FROM restaurants WHERE restaurant_id = :restaurant_id_from_input;
 -- get all chefs
 SELECT * FROM chefs;
 
+-- get specific chef
+SELECT * FROM chefs WHERE chef_id=:chef_id;
+
 -- get all chefs and their position and restaurant for the Chefs page
 SELECT chefs.chef_id, chefs.name, chefs.position, restaurants.name AS Restaurant 
 FROM chefs 
-    INNER JOIN restaurants ON chefs.restaurant_id = restaurants.restaurant_id
-ORDER BY chefs.name ASC;
+    LEFT JOIN restaurants ON chefs.restaurant_id = restaurants.restaurant_id;
 
 -- get a single chef's data for the Update Chef form
 SELECT chefs.chef_id, chefs.name, chefs.position, chefs.restaurant_id

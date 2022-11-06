@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 from flask_mysqldb import MySQL
 import config, database as db
 
@@ -30,6 +30,12 @@ def chefs():
 
     return render_template('pages/chefs.html', context=context)
 
+@app.route('/chefs/<chef_id>')
+def get_chef(chef_id):
+
+    chef = db.get_chef(mysql, chef_id)
+    return jsonify(chef)
+
 @app.route('/chefs/insert', methods=['POST'])
 def insert_chef():
 
@@ -40,6 +46,24 @@ def insert_chef():
     }
 
     db.insert_chef(mysql, chef)
+    return redirect(url_for('chefs'))
+
+@app.route('/chefs/update', methods=['POST'])
+def update_chef():
+
+    chef = {
+        'id' : request.form['chef-id'],
+        'name': request.form['name'],
+        'position' : request.form['position'],
+        'restaurant_id' : request.form['restaurant']
+    }
+
+    db.update_chef(mysql, chef)
+    return redirect(url_for('chefs'))
+
+@app.route('/chefs/delete', methods=['DELETE'])
+def delete_chef():
+    db.delete_chef(mysql, request.json['chef_id'])
     return redirect(url_for('chefs'))
 
 @app.route('/dishes')

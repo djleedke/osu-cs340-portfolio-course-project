@@ -34,7 +34,21 @@ def get_table_counts(mysql):
 def get_all_chefs(mysql):
     """Returns all rows from the chefs table."""
 
-    query = ("SELECT * FROM chefs")
+    #query = ("SELECT * FROM chefs")
+    query = (
+        "SELECT chefs.chef_id, chefs.name, chefs.position, restaurants.name as restaurant_name FROM chefs "
+        "LEFT JOIN restaurants ON chefs.restaurant_id = restaurants.restaurant_id;"
+    )
+    
+    return execute_query(mysql, query)
+
+def get_chef(mysql, chef_id):
+    """Returns the chef for the given chef_id"""
+
+    query = (
+        f"SELECT * FROM chefs WHERE chef_id={chef_id};"
+    )
+
     return execute_query(mysql, query)
 
 def insert_chef(mysql, chef):
@@ -44,6 +58,23 @@ def insert_chef(mysql, chef):
         "INSERT INTO chefs (name, position, restaurant_id)"
         f" VALUES ('{chef['name']}', '{chef['position']}', {chef['restaurant']});"
     )
+
+    return execute_query(mysql, query)
+
+def update_chef(mysql, chef):
+
+    query = (
+        f"UPDATE chefs SET name='{chef['name']}', position='{chef['position']}', restaurant_id={chef['restaurant_id']} "
+        f"WHERE chef_id={chef['id']};"
+    )
+
+    return execute_query(mysql, query)
+
+def delete_chef(mysql, chef_id):
+    """Deletes a chef from the chefs table for the specified chef_id."""
+
+    print(chef_id)
+    query = (f"DELETE FROM chefs WHERE chef_id = {chef_id}")
 
     return execute_query(mysql, query)
 
