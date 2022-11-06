@@ -107,7 +107,7 @@
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.position }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteChef('{{row.chef_id}}')">Delete</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteChefModal" onclick="document.getElementById('delete-chef-id').value='{{row.chef_id}}';">Delete</button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -117,4 +117,5 @@
             </div>
         </div>
     </div>
+    {% include 'modals/chef_delete_modal.html' %}
 {% endblock %}

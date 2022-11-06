@@ -76,7 +76,7 @@ CREATE TABLE `recipes` (
   PRIMARY KEY (`recipe_id`),
   UNIQUE KEY `recipe_id_UNIQUE` (`recipe_id`),
   KEY `fk_recipes_chefs1_idx` (`chef_id`),
-  CONSTRAINT `fk_recipes_chefs1` FOREIGN KEY (`chef_id`) REFERENCES `chefs` (`chef_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_recipes_chefs1` FOREIGN KEY (`chef_id`) REFERENCES `chefs` (`chef_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 -- Inserting `recipes` data
