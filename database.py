@@ -89,7 +89,12 @@ def get_all_dishes(mysql):
 def get_all_dish_has_recipe(mysql):
     """Returns all rows from the dish_has_recipe table."""
 
-    query = ("SELECT * FROM dish_has_recipe" )
+    query = (
+        "SELECT dish_has_recipe.*, dishes.name as dish_name, recipes.name as recipe_name "
+        "FROM dish_has_recipe "
+            "LEFT JOIN dishes ON dish_has_recipe.dish_id=dishes.dish_id "
+            "LEFT JOIN recipes ON dish_has_recipe.recipe_id=recipes.recipe_id;"
+    )
     return execute_query(mysql, query)
 
 # ---------- ingredients ----------

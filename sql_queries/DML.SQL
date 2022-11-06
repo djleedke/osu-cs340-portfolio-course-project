@@ -143,6 +143,12 @@ WHERE recipe_id = :recipe_id_input AND ingredient_id = :ingredient_id_input;
 -- get table
 SELECT * FROM dish_has_recipe;
 
+-- get table w/ dish & recipe names
+SELECT dish_has_recipe.*, dishes.name as dish_name, recipes.name as recipe_name
+FROM dish_has_recipe
+    LEFT JOIN dishes ON dish_has_recipe.dish_id=dishes.dish_id
+    LEFT JOIN recipes ON dish_has_recipe.recipe_id=recipes.recipe_id;
+
 -- associate a dish with recipes (M-to-M relationship addition)
 INSERT INTO dish_has_recipe (dish_id, recipe_id) 
 VALUES (:dish_id_input, :recipe_id_input);
