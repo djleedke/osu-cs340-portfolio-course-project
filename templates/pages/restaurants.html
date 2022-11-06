@@ -37,6 +37,9 @@
                         <tr>
                             <td>{{ row.restaurant_id }}</td>
                             <td>{{ row.name }}</td>
+                            <td>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteRestaurantModal" onclick="document.getElementById('delete-restaurant-id').value='{{row.restaurant_id}}';">Delete</button>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
