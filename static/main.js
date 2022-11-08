@@ -27,7 +27,7 @@ document.getElementById('updateChef').onchange = function() {
  * 
  * @param {string} chefId 
  */
-let deleteChef = (chefId) => {
+function deleteChef(chefId) {
 
     fetch("/chefs/delete", {
         method: 'DELETE',
@@ -39,7 +39,7 @@ let deleteChef = (chefId) => {
         location.reload()
     });
 
-}
+};
 
 /**
  * Sends a DELETE request for the provided restaurantId, 
@@ -47,8 +47,7 @@ let deleteChef = (chefId) => {
  * 
  * @param {string} restaurantId 
  */
-let deleteRestaurant = (restaurantId) => {
-
+function deleteRestaurant(restaurantId) {
     fetch("/restaurants/delete", {
         method: 'DELETE',
         headers: {
@@ -58,5 +57,4 @@ let deleteRestaurant = (restaurantId) => {
     }).then(() => {
         location.reload()
     });
-
-}
+};
