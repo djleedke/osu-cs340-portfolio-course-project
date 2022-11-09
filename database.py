@@ -104,6 +104,16 @@ def get_all_ingredients(mysql):
     query = ("SELECT * FROM ingredients")
     return execute_query(mysql, query)
 
+def insert_ingredient(mysql, ingredient):
+    """Inserts an ingredient into the ingredients table.  Must provide an ingredient dictionary that contains the table attributes."""
+
+    query = (
+        "INSERT INTO ingredients (name, type)"
+        f" VALUES ('{ingredient['name']}', '{ingredient['type']}');"
+    )
+
+    return execute_query(mysql, query)
+
 # --------- recipes ----------
 def get_all_recipes(mysql):
     """Returns all rows from the recipes table."""
