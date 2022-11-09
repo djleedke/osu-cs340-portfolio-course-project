@@ -97,6 +97,21 @@ def recipes():
     context = db.get_all_recipes(mysql)
     return render_template('pages/recipes.html', context=context)
 
+@app.route('/recipes/insert', methods=['POST'])
+def insert_recipe():
+
+    recipe = {
+        'name': request.form['name'],
+        'chef' : request.form['chef'],
+        'cuisine' : request.form['cuisine'],
+        'heat_level' : request.form['heat_level'],
+        'gluten_free' : request.form['gluten_free'],
+        'description' : request.form['description']                                     
+    }
+
+    db.insert_recipe(mysql, recipe)
+    return redirect(url_for('recipes'))
+
 @app.route('/recipe-has-ingredient')
 def recipe_has_ingredient():
     context = db.get_all_recipe_has_ingredient(mysql)
