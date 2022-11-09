@@ -81,6 +81,17 @@ def ingredients():
     context = db.get_all_ingredients(mysql)
     return render_template('pages/ingredients.html', context=context)
 
+@app.route('/ingredients/insert', methods=['POST'])
+def insert_ingredient():
+
+    ingredient = {
+        'name': request.form['name'],
+        'type' : request.form['type']
+    }
+
+    db.insert_ingredient(mysql, ingredient)
+    return redirect(url_for('ingredients'))
+
 @app.route('/recipes')
 def recipes():
     context = db.get_all_recipes(mysql)
