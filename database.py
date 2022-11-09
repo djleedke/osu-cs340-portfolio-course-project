@@ -125,6 +125,16 @@ def get_all_recipes(mysql):
 
     return execute_query(mysql, query)
 
+def insert_recipe(mysql, recipe):
+    """Inserts a recipe into the recipes table.  Must provide a recipe dictionary that contains the table attributes."""
+
+    query = (
+        "INSERT INTO recipes (name, chef, cuisine, heat_level, gluten_free, description)"
+        f" VALUES ('{recipe['name']}', '{recipe['chef']}', {recipe['cuisine']}, {recipe['heat_level']}, {recipe['gluten_free']}, {recipe['description']});"
+    )
+
+    return execute_query(mysql, query)
+
 # --------- recipe_has_ingredient ---------
 def get_all_recipe_has_ingredient(mysql):
     """Returns all rows from the recipe_has_ingredient table."""
