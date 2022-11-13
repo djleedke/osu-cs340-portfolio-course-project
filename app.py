@@ -106,8 +106,25 @@ def delete_dish():
 
 @app.route('/dish-has-recipe')
 def dish_has_recipe():
-    context = db.get_all_dish_has_recipe(mysql)
+
+    context = {
+        'recipes' : db.get_all_recipes(mysql),
+        'dishes' : db.get_all_dishes(mysql),
+        'dish_has_recipe' : db.get_all_dish_has_recipe(mysql)
+    }
+
     return render_template('pages/dish_has_recipe.html', context=context)
+
+@app.route('/dish-has-recipe/insert', methods=['POST'])
+def insert_dish_has_recipe():
+
+    dish_has_recipe = {
+        'dish_id': request.form['dish-id'],
+        'recipe_id' : request.form['recipe-id'],
+    }
+
+    db.insert_dish_has_recipe(mysql, request.form['dish-id'], request.form['recipe-id'])
+    return redirect(url_for('dish_has_recipe'))
 
 @app.route('/dish-has-recipe/delete', methods=['DELETE'])
 def delete_dish_has_recipe():

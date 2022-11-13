@@ -8,24 +8,24 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Add a Recipe to a Dish</h5>
-                        <form class="mt-3">
+                        <form action="{{ url_for('insert_dish_has_recipe')}}" method="post" class="mt-3">
                             <div class="row">
                                 <div class="col-12">
                                     <label for="recipe">Recipe</label>
-                                    <select id="inputRecipe" class="form-select">
-                                        <option selected>Choose...</option>
-                                        <option>Chicken Carbonara</option>
-                                        <option>Meatloaf</option>
-                                        <option>California Rolls</option>
-                                        <option>Caprese Salad</option>
+                                    <select id="inputRecipe" class="form-select" name="recipe-id" required>
+                                        <option value="" selected disabled hidden>Choose...</option>
+                                        {% for row in context.recipes %}
+                                            <option value="{{row.recipe_id}}">{{row.name}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-12 mt-3">
                                     <label for="dish">Dish</label>
-                                    <select id="inputDish" class="form-select">
-                                        <option selected>Choose...</option>
-                                        <option>Meatloaf w/ Truffle Fries</option>
-                                        <option>Firecracker Chicken & Steamed White Rice</option>
+                                    <select id="inputDish" class="form-select" name="dish-id" required>
+                                        <option value="" selected disabled hidden>Choose...</option>
+                                        {% for row in context.dishes %}
+                                            <option value="{{row.dish_id}}">{{ row.name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="d-flex flex-row-reverse col-12">
@@ -47,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for row in context %}
+                            {% for row in context.dish_has_recipe %}
                             <tr>
                                 <td>{{ row.dish_name }}</td>
                                 <td>{{ row.recipe_name }}</td>
