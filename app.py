@@ -109,6 +109,11 @@ def dish_has_recipe():
     context = db.get_all_dish_has_recipe(mysql)
     return render_template('pages/dish_has_recipe.html', context=context)
 
+@app.route('/dish-has-recipe/delete', methods=['DELETE'])
+def delete_dish_has_recipe():
+    result = db.delete_dish_has_recipe(mysql, request.json['dish_id'], request.json['recipe_id'])
+    return jsonify(result)
+
 # --------- ingredients ---------
 
 @app.route('/ingredients')

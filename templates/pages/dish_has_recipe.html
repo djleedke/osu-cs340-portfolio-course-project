@@ -29,7 +29,7 @@
                                     </select>
                                 </div>
                                 <div class="d-flex flex-row-reverse col-12">
-                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                    <button type="submit" class="btn btn-primary mt-3">Insert</button>
                                 </div>
                             </div>
                         </form>
@@ -52,7 +52,7 @@
                                 <td>{{ row.dish_name }}</td>
                                 <td>{{ row.recipe_name }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    <button id="delete-dish-has-recipe" type="button" class="btn btn-danger btn-sm" onclick="deleteDishHasRecipe({{row.dish_id}}, {{row.recipe_id}});">Delete</button>
                                 </td>
                             </tr>
                             {% endfor %}

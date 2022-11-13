@@ -166,3 +166,6 @@ UPDATE dish_has_recipe
 SET dish_id = :dish_id_input, recipe_id = :recipe_id_input
 WHERE dish_id = :dish_id_input AND recipe_id = :recipe_id_input;
 
+-- delete dish_has_recipe entry
+DELETE FROM dish_has_recipe
+WHERE dish_id = :dish_id AND recipe_id = :recipe_id

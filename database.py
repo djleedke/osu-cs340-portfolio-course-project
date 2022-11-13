@@ -141,6 +141,16 @@ def insert_dish_has_recipe(mysql, dish_id, recipe_id):
 
     return execute_query(mysql, query)
 
+def delete_dish_has_recipe(mysql, dish_id, recipe_id):
+    """Deletes a row from the dish_has_recipe table."""
+
+    query = (
+        "DELETE FROM dish_has_recipe "
+        f"WHERE dish_id = {dish_id} AND recipe_id = {recipe_id}"
+    )
+
+    return execute_query(mysql, query)
+
 # ---------- ingredients ----------
 def get_all_ingredients(mysql):
     """Returns all rows from the ingredients table."""
