@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="inputDishName" name="name" required>
+                                    <input type="text" class="form-control" id="inputDishName" name="name" required autocomplete="off">
                                 </div>
                                 <div class="col-6">
                                     <label for="rating">Rating</label>
@@ -52,7 +52,7 @@
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.rating }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    <button id="delete-dish" type="button" class="btn btn-danger btn-sm" onclick="deleteDish({{row.dish_id}});">Delete</button>
                                 </td>
                             </tr>
                             {% endfor %}

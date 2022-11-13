@@ -91,6 +91,8 @@ def get_all_dishes(mysql):
     return execute_query(mysql, query)
 
 def insert_dish(mysql, dish):
+    """"Inserts a dish into the dishes table and creates a many-to-many row in
+    dish_has_recipe for any provided recipe_ids."""
 
     # Adding null when rating is empty
     if(dish['rating'] == ''):
@@ -107,6 +109,14 @@ def insert_dish(mysql, dish):
         insert_dish_has_recipe(mysql, dish_id, recipe_id)
 
     return dish_id
+
+def delete_dish(mysql, dish_id):
+    """Deletes a dish from the dishes table for the specified dish_id."""
+
+    query = (f"DELETE FROM dishes WHERE dish_id = {dish_id};")
+
+    return execute_query(mysql, query)
+
 
 # ---------- dish_has_recipe ---------
 def get_all_dish_has_recipe(mysql):

@@ -17,6 +17,8 @@ def index():
     context = db.get_table_counts(mysql)[0]
     return render_template('pages/index.html', context=context)
 
+# --------- chefs ---------
+
 @app.route('/chefs')
 def chefs():
 
@@ -66,6 +68,8 @@ def delete_chef():
     result = db.delete_chef(mysql, request.json['chef_id'])
     return jsonify(result)
 
+# --------- dishes ----------
+
 @app.route('/dishes')
 def dishes():
 
@@ -92,10 +96,20 @@ def insert_dish():
     db.insert_dish(mysql, dish)
     return redirect(url_for('dishes'))
 
+@app.route('/dishes/delete', methods=['DELETE'])
+def delete_dish():
+    result = db.delete_dish(mysql, request.json['dish_id'])
+    return jsonify(result)
+
+
+# ---------- dish_has_recipe ---------
+
 @app.route('/dish-has-recipe')
 def dish_has_recipe():
     context = db.get_all_dish_has_recipe(mysql)
     return render_template('pages/dish_has_recipe.html', context=context)
+
+# --------- ingredients ---------
 
 @app.route('/ingredients')
 def ingredients():
@@ -112,6 +126,8 @@ def insert_ingredient():
 
     db.insert_ingredient(mysql, ingredient)
     return redirect(url_for('ingredients'))
+
+# --------- recipes ---------
 
 @app.route('/recipes')
 def recipes():
@@ -133,10 +149,14 @@ def insert_recipe():
     db.insert_recipe(mysql, recipe)
     return redirect(url_for('recipes'))
 
+# ----------- recipe_has_ingredient ---------
+
 @app.route('/recipe-has-ingredient')
 def recipe_has_ingredient():
     context = db.get_all_recipe_has_ingredient(mysql)
     return render_template('pages/recipe_has_ingredient.html', context=context)
+
+# --------- restaurants --------- 
 
 @app.route('/restaurants')
 def restaurants():

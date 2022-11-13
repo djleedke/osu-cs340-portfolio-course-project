@@ -42,6 +42,26 @@ function deleteChef(chefId) {
 };
 
 /**
+ * Sends a DELETE request for the provided dishId, 
+ * removes it from the database, and reloads the page.
+ * 
+ * @param {string} dishId 
+ */
+ function deleteDish(dishId) {
+
+    fetch("/dishes/delete", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ 'dish_id' : dishId })
+    }).then(() => {
+        location.reload()
+    });
+
+};
+
+/**
  * Sends a DELETE request for the provided restaurantId, 
  * removes it from the database, and reloads the page.
  * 
