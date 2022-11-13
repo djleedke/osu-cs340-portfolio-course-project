@@ -68,8 +68,29 @@ def delete_chef():
 
 @app.route('/dishes')
 def dishes():
-    context = db.get_all_dishes(mysql)
+
+    context = {
+        'dishes' : db.get_all_dishes(mysql),
+        'recipes' : db.get_all_recipes(mysql)
+    }
+
     return render_template('pages/dishes.html', context=context)
+
+@app.route('/dishes/insert', methods=['POST'])
+def insert_dish():
+
+    # Reference: https://www.geeksforgeeks.org/how-to-get-data-from-immutablemultidict-in-flask/
+    # Date Accessed: 11/13/2022
+    # Referenced to get the list of recipes from the form in request.form.getlist('recipes')
+
+    dish = {
+        'name': request.form['name'],
+        'rating' : request.form['rating'],
+        'recipes' : request.form.getlist('recipes')
+    }
+
+    db.insert_dish(mysql, dish)
+    return redirect(url_for('dishes'))
 
 @app.route('/dish-has-recipe')
 def dish_has_recipe():

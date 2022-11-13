@@ -8,6 +8,12 @@ def execute_query(mysql, query):
         cursor = mysql.connection.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
+
+        # If it was an insert no data will be returned, returning
+        # the id of the row that was inserted instead
+        if len(data) == 0:
+            data = (cursor.lastrowid)
+        
         cursor.connection.commit()
     except Exception as e:
         print(e)
@@ -84,6 +90,24 @@ def get_all_dishes(mysql):
     query = ("SELECT * FROM dishes")
     return execute_query(mysql, query)
 
+def insert_dish(mysql, dish):
+
+    # Adding null when rating is empty
+    if(dish['rating'] == ''):
+        dish['rating'] = 'NULL'
+
+    query = (
+        f"INSERT INTO dishes (name, rating) VALUES ('{dish['name']}', {dish['rating']});"
+    )
+
+    dish_id = execute_query(mysql, query)
+
+    # Iterating recipes and inserting each of those in dish_has_recipe
+    for recipe_id in dish['recipes']:
+        insert_dish_has_recipe(mysql, dish_id, recipe_id)
+
+    return dish_id
+
 # ---------- dish_has_recipe ---------
 def get_all_dish_has_recipe(mysql):
     """Returns all rows from the dish_has_recipe table."""
@@ -93,6 +117,16 @@ def get_all_dish_has_recipe(mysql):
         "FROM dish_has_recipe "
             "LEFT JOIN dishes ON dish_has_recipe.dish_id=dishes.dish_id "
             "LEFT JOIN recipes ON dish_has_recipe.recipe_id=recipes.recipe_id;"
+    )
+
+    return execute_query(mysql, query)
+
+def insert_dish_has_recipe(mysql, dish_id, recipe_id):
+    """Inserts a row into the dish_has_recipe table."""
+
+    query = (
+        "INSERT INTO dish_has_recipe (dish_id, recipe_id) "
+            f"VALUES ('{dish_id}', '{recipe_id}');"
     )
 
     return execute_query(mysql, query)

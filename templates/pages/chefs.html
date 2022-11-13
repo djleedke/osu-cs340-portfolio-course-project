@@ -93,8 +93,8 @@
                         <thead>
                             <tr>
                                 <th>chef_id</th>
-                                <th>restaurant_name</th>
                                 <th>name</th>
+                                <th>restaurant_name</th>
                                 <th>position</th>
                                 <th></th>
                             </tr>
@@ -103,8 +103,8 @@
                             {% for row in context.chefs %}
                             <tr>
                                 <td>{{ row.chef_id }}</td>
-                                <td>{{ row.restaurant_name }}</td>
                                 <td>{{ row.name }}</td>
+                                <td>{{ row.restaurant_name }}</td>
                                 <td>{{ row.position }}</td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteChefModal" onclick="document.getElementById('delete-chef-id').value='{{row.chef_id}}'">Delete</button>
