@@ -30,7 +30,7 @@ CREATE TABLE `chefs` (
   `position` varchar(50) NOT NULL,
   PRIMARY KEY (`chef_id`),
   UNIQUE KEY `chef_id_UNIQUE` (`chef_id`),
-  FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
+  FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`) ON DELETE SET NULL
 );
 
 -- Inserting `chefs` data

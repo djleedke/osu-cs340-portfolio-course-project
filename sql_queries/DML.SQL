@@ -5,6 +5,9 @@
 -- get all restaurants
 SELECT * FROM restaurants;
 
+-- get specific resturant
+SELECT * FROM restaurants WHERE restaurant_id=:restaurant_id;
+
 -- get all Restaurant IDs and Names to populate the Restaurant dropdown
 SELECT restaurant_id, name FROM restaurants
 ORDER BY name ASC;

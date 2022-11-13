@@ -209,6 +209,14 @@ def get_all_restaurants(mysql):
     query = ("SELECT * FROM restaurants")
     return execute_query(mysql, query)
 
+def get_restaurant(mysql, restaurant_id):
+    """Returns the restaurant for the given restaurant_id"""
+
+    query = (
+        f"SELECT * FROM restaurants WHERE restaurant_id={restaurant_id};"
+    )
+
+    return execute_query(mysql, query)
 
 def insert_restaurant(mysql, restaurant):
     """Inserts a new restaurant into the restaurants table.  Must provide a restaurant dictionary that contains the table attributes."""
@@ -216,6 +224,16 @@ def insert_restaurant(mysql, restaurant):
     query = (
         "INSERT INTO restaurants (name)"
         f" VALUES ('{restaurant['name']}');"
+    )
+
+    return execute_query(mysql, query)
+
+def update_restaurant(mysql, restaurant):
+    """Updates the restaurant with the provided values and id"""
+
+    query = (
+        f'UPDATE restaurants SET name="{restaurant["name"]}" '
+        f"WHERE restaurant_id='{restaurant['id']}';"
     )
 
     return execute_query(mysql, query)

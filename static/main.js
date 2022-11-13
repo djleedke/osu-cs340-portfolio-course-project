@@ -1,24 +1,44 @@
 
 
 // Setting up onchange listeners for our update forms (to fill them in dynamically)
-document.getElementById('updateChef').onchange = function() {
 
-    let chefId = document.getElementById('updateChef').value;
+if(document.getElementById('updateChef')){
+    document.getElementById('updateChef').onchange = function() {
 
-    fetch("/chefs/" + chefId, {
-        method: 'GET',
-        headers: {
-            'Content-Type' : 'application/json'
-        }
-    }).then(response => response.json())
-    .then( data => {
-        document.getElementById('updateName').value = data[0].name;
-        document.getElementById('updatePosition').value = data[0].position;
+        let chefId = document.getElementById('updateChef').value;
+    
+        fetch("/chefs/" + chefId, {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        }).then(response => response.json())
+        .then( data => {
+            document.getElementById('updateName').value = data[0].name;
+            document.getElementById('updatePosition').value = data[0].position;
+    
+            restaurantId = data[0].restaurant_id === null ? "NULL" : data[0].restaurant_id;
+            document.getElementById('updateRestaurant').value = restaurantId;
+    
+        });
+    }
+}
 
-        restaurantId = data[0].restaurant_id === null ? "NULL" : data[0].restaurant_id;
-        document.getElementById('updateRestaurant').value = restaurantId;
+if(document.getElementById('updateRestaurant')){
+    document.getElementById('updateRestaurant').onchange = function() {
 
-    });
+        let restaurantId = document.getElementById('updateRestaurant').value;
+    
+        fetch("/restaurants/" + restaurantId, {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        }).then(response => response.json())
+        .then( data => {
+            document.getElementById('updateRestaurantName').value = data[0].name;
+        });
+    }
 }
 
 /**

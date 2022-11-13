@@ -185,6 +185,12 @@ def restaurants():
     context = db.get_all_restaurants(mysql)
     return render_template('pages/restaurants.html', context=context)
 
+@app.route('/restaurants/<restaurant_id>')
+def get_restaurant(restaurant_id):
+
+    restaurant = db.get_restaurant(mysql, restaurant_id)
+    return jsonify(restaurant)
+
 @app.route('/restaurants/insert', methods=['POST'])
 def insert_restaurant():
 
@@ -193,6 +199,17 @@ def insert_restaurant():
     }
 
     db.insert_restaurant(mysql, restaurant)
+    return redirect(url_for('restaurants'))
+
+@app.route('/restaurants/update', methods=['POST'])
+def update_restaurant():
+
+    restaurant = {
+        'id' : request.form['restaurant-id'],
+        'name': request.form['name']
+    }
+
+    db.update_restaurant(mysql, restaurant)
     return redirect(url_for('restaurants'))
 
 @app.route('/restaurants/delete', methods=['DELETE'])
