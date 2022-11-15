@@ -168,24 +168,47 @@ def insert_ingredient(mysql, ingredient):
 
     return execute_query(mysql, query)
 
+def delete_ingredient(mysql, ingredient_id):
+    """Deletes an ingredient from the ingredients table for the specified ingredient_id."""
+
+    query = (f"DELETE FROM ingredients WHERE ingredient_id = {ingredient_id};")
+
+    return execute_query(mysql, query)
+
 # --------- recipes ----------
 def get_all_recipes(mysql):
     """Returns all rows from the recipes table."""
     
     query = (
         "SELECT recipes.*, chefs.name as chef_name FROM recipes "
-            "LEFT JOIN chefs ON chefs.chef_id=recipes.recipe_id;"
+            "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id;"
     )
 
     return execute_query(mysql, query)
+
+def search_recipe(mysql, recipe):
+
+    query = (
+        "SELECT * FROM recipes "
+        f"WHERE recipes.chef_id = {recipe['chef']}"
+    )
+
+    return {'test' : 5}
 
 def insert_recipe(mysql, recipe):
     """Inserts a recipe into the recipes table.  Must provide a recipe dictionary that contains the table attributes."""
 
     query = (
-        "INSERT INTO recipes (name, chef, cuisine, heat_level, gluten_free, description)"
-        f" VALUES ('{recipe['name']}', '{recipe['chef']}', {recipe['cuisine']}, {recipe['heat_level']}, {recipe['gluten_free']}, {recipe['description']});"
+        "INSERT INTO recipes (name, chef_id, cuisine, heat_level, gluten_free, description)"
+        f" VALUES ('{recipe['name']}', {recipe['chef']}, '{recipe['cuisine']}', {recipe['heat_level']}, '{recipe['gluten_free']}', '{recipe['description']}');"
     )
+
+    return execute_query(mysql, query)
+
+def delete_recipe(mysql, recipe_id):
+    """Deletes a recipe from the recipes table for the specified recipe_id."""
+
+    query = (f"DELETE FROM recipes WHERE recipe_id = {recipe_id};")
 
     return execute_query(mysql, query)
 
@@ -198,6 +221,26 @@ def get_all_recipe_has_ingredient(mysql):
         "FROM recipe_has_ingredient "
             "LEFT JOIN recipes ON recipes.recipe_id=recipe_has_ingredient.recipe_id "
             "LEFT JOIN ingredients ON ingredients.ingredient_id=recipe_has_ingredient.ingredient_id;"    
+    )
+
+    return execute_query(mysql, query)
+
+def insert_recipe_has_ingredient(mysql, recipe_has_ingredient):
+    """Inserts a row into the recipe_has_ingredient table."""
+
+    query = (
+        "INSERT INTO recipe_has_ingredient (recipe_id, ingredient_id, quantity, measurement) "
+            f"VALUES ({recipe_has_ingredient['recipe_id']}, {recipe_has_ingredient['ingredient_id']}, {recipe_has_ingredient['quantity']}, '{recipe_has_ingredient['measurement']}');"
+    )
+
+    return execute_query(mysql, query)
+
+def delete_recipe_has_ingredient(mysql, recipe_id, ingredient_id):
+    """Deletes a row from the recipe_has_ingredient table."""
+
+    query = (
+        "DELETE FROM recipe_has_ingredient "
+        f"WHERE recipe_id = {recipe_id} AND ingredient_id = {ingredient_id}"
     )
 
     return execute_query(mysql, query)
