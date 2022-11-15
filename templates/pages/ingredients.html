@@ -19,9 +19,12 @@
                                 <select id="inputType" name="type" class="form-select">
                                     <option value="" selected disabled hidden>Choose...</option>
                                     <option>Grain</option>
-                                    <option>Herbs & Spices</option>
-                                    <option>Other</option>
                                     <option>Protein</option>
+                                    <option>Fruits & Vegetables</option>
+                                    <option>Herbs & Spices</option>
+                                    <option>Broths & Concentrates</option>
+                                    <option>Other</option>
+                                    
                                 </select>
                             </div>
                             <div class="d-flex flex-row-reverse col-12">
@@ -40,6 +43,7 @@
                             <th>ingredient_id</th>
                             <th>name</th>
                             <th>type</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +52,9 @@
                             <td>{{ row.ingredient_id }}</td>
                             <td>{{ row.name }}</td>
                             <td>{{ row.type }}</td>
+                            <td>
+                                <button id="delete-ingredient" type="button" class="btn btn-danger btn-sm" onclick="deleteIngredient({{row.ingredient_id}});">Delete</button>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
