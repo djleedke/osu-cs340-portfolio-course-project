@@ -8,37 +8,36 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Add an Ingredient to a Recipe</h5>
-                        <form class="mt-3">
+                        <form action="{{ url_for('insert_recipe_has_ingredient')}}" method="post" class="mt-3">
                             <div class="row">
                                 <div class="col-12">
                                     <label for="ingredient">Ingredient</label>
-                                    <select id="inputRecipe" class="form-select">
-                                        <option selected>Choose...</option>
-                                        <option>Chicken Breast</option>
-                                        <option>Spaghetti</option>
-                                        <option>Egg</option>
-                                        <option>White Rice</option>
+                                    <select id="inputRecipe" name="ingredient-id" class="form-select" required>
+                                        <option value="" selected disabled hidden>Choose...</option>
+                                        {% for row in context.ingredients %}
+                                            <option value="{{row.ingredient_id}}">{{row.name}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-12 mt-3">
                                     <label for="recipe">Recipe</label>
-                                    <select id="inputRecipe" class="form-select">
-                                        <option selected>Choose...</option>
-                                        <option>Chicken Carbonara</option>
-                                        <option>Meatloaf</option>
-                                        <option>California Rolls</option>
-                                        <option>Caprese Salad</option>
+                                    <select id="inputRecipe" name="recipe-id" class="form-select" required>
+                                        <option value="" selected disabled hidden>Choose...</option>
+                                        {% for row in context.recipes %}
+                                            <option value="{{row.recipe_id}}">{{row.name}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <label for="quantity">Quantity</label>
-                                    <input type="number" class="form-control" id="inputQuantity" min="0">
+                                    <input type="number" name="quantity" class="form-control" id="inputQuantity" min="0" required>
                                 </div>
                                 <div class="col-6 mt-3">
                                     <label for="measurement">Measurement</label>
-                                    <select id="inputMeasurement" class="form-select">
+                                    <select id="inputMeasurement" name="measurement" class="form-select" required>
                                         <option selected>Choose...</option>
                                         <option>cups</option>
+                                        <option>tbsp</option>
                                         <option>lbs</option>
                                         <option>units</option>
                                         <option>pieces</option>
@@ -61,15 +60,19 @@
                                 <th>ingredient_name</th>
                                 <th>quantity</th>
                                 <th>measurement</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for row in context %}
+                            {% for row in context.recipe_has_ingredient %}
                             <tr>
                                 <td>{{ row.recipe_name }}</td>
                                 <td>{{ row.ingredient_name }}</td>
                                 <td>{{ row.quantity }}</td>
                                 <td>{{ row.measurement }}</td>
+                                <td>
+                                    <button id="delete-recipe-has-ingredient" type="button" class="btn btn-danger btn-sm" onclick="deleteRecipeHasIngredient({{row.recipe_id}}, {{row.ingredient_id}});">Delete</button>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
