@@ -121,3 +121,67 @@ function deleteRestaurant(restaurantId) {
         location.reload()
     });
 };
+
+
+/**
+ * Sends a DELETE request for the provided ingredientId, 
+ * removes it from the database, and reloads the page.
+ * 
+ * @param {string} ingredientId 
+ */
+ function deleteIngredient(ingredientId) {
+
+    fetch("/ingredients/delete", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ 'ingredient_id' : ingredientId })
+    }).then(() => {
+        location.reload()
+    });
+
+};
+
+/**
+ * Sends a DELETE request for the provided recipeId, 
+ * removes it from the database, and reloads the page.
+ * 
+ * @param {string} recipeId 
+ */
+ function deleteRecipe(recipeId) {
+
+    fetch("/recipes/delete", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ 'recipe_id' : recipeId })
+    }).then(() => {
+        location.reload()
+    });
+
+};
+
+/**
+ * Sends a DELETE request for the provided recipeID and ingredientID, 
+ * removes it from the database, and reloads the page.
+ * 
+ * @param {string} recipeId, ingredientID
+ */
+ function deleteRecipeHasIngredient(recipeId, ingredientId) {
+
+    fetch("/recipe-has-ingredient/delete", {
+        method: 'DELETE',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ 
+            'recipe_id' : recipeId,
+            'ingredient_id' : ingredientId 
+        })
+    }).then(() => {
+        location.reload()
+    });
+
+};
