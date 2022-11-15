@@ -149,34 +149,79 @@ def insert_ingredient():
     db.insert_ingredient(mysql, ingredient)
     return redirect(url_for('ingredients'))
 
+@app.route('/ingredients/delete', methods=['DELETE'])
+def delete_ingredient():
+    result = db.delete_ingredient(mysql, request.json['ingredient_id'])
+    return jsonify(result)
+
 # --------- recipes ---------
 
 @app.route('/recipes')
 def recipes():
-    context = db.get_all_recipes(mysql)
+
+    context = {
+        'recipes' : db.get_all_recipes(mysql),
+        'chefs' : db.get_all_chefs(mysql)
+    }
+    #context = db.get_all_recipes(mysql)
     return render_template('pages/recipes.html', context=context)
+
+@app.route('/recipes/search', methods=['POST'])
+def search_recipe():
+
+    search = dict(request.form)
+    results = db.search_recipe(mysql, search)
+
+    return results
 
 @app.route('/recipes/insert', methods=['POST'])
 def insert_recipe():
 
     recipe = {
         'name': request.form['name'],
-        'chef' : request.form['chef'],
+        'chef' : request.form['chef_id'],
         'cuisine' : request.form['cuisine'],
         'heat_level' : request.form['heat_level'],
         'gluten_free' : request.form['gluten_free'],
         'description' : request.form['description']                                     
     }
-
     db.insert_recipe(mysql, recipe)
     return redirect(url_for('recipes'))
+
+@app.route('/recipes/delete', methods=['DELETE'])
+def delete_recipe():
+    result = db.delete_recipe(mysql, request.json['recipe_id'])
+    return jsonify(result)
 
 # ----------- recipe_has_ingredient ---------
 
 @app.route('/recipe-has-ingredient')
 def recipe_has_ingredient():
-    context = db.get_all_recipe_has_ingredient(mysql)
+    context = {
+        'recipe_has_ingredient' : db.get_all_recipe_has_ingredient(mysql),
+        'recipes' : db.get_all_recipes(mysql),
+        'ingredients' : db.get_all_ingredients(mysql)
+    }
+    #context = db.get_all_recipe_has_ingredient(mysql)
     return render_template('pages/recipe_has_ingredient.html', context=context)
+
+@app.route('/recipe-has-ingredient/insert', methods=['POST'])
+def insert_recipe_has_ingredient():
+
+    recipe_has_ingredient = {
+        'recipe_id': request.form['recipe-id'],
+        'ingredient_id' : request.form['ingredient-id'],
+        'quantity' : request.form['quantity'],
+        'measurement' : request.form['measurement']
+    }
+
+    db.insert_recipe_has_ingredient(mysql, recipe_has_ingredient)
+    return redirect(url_for('recipe_has_ingredient'))
+
+@app.route('/recipe-has-ingredient/delete', methods=['DELETE'])
+def delete_recipe_has_ingredient():
+    result = db.delete_recipe_has_ingredient(mysql, request.json['recipe_id'], request.json['ingredient_id'])
+    return jsonify(result)
 
 # --------- restaurants --------- 
 
