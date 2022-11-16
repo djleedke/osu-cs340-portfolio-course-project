@@ -148,7 +148,7 @@ CREATE TABLE `recipe_has_ingredient` (
   KEY `fk_recipe_has_ingredient_ingredient1_idx` (`ingredient_id`),
   KEY `fk_recipe_has_ingredient_recipe1_idx` (`recipe_id`),
   CONSTRAINT `fk_recipe_has_ingredient_recipe1` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`recipe_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_recipe_has_ingredient_ingredient1` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 -- Inserting `recipe_has_ingredient` data
