@@ -186,14 +186,36 @@ def get_all_recipes(mysql):
 
     return execute_query(mysql, query)
 
-def search_recipe(mysql, recipe):
+def search_recipe(mysql, search):
 
-    query = (
-        "SELECT * FROM recipes "
-        f"WHERE recipes.chef_id = {recipe['chef']}"
-    )
+    # Handles if recipe name is empty (or both name and chef are empty)
+    if search['recipe_name'] == "":
+        query = (
+        "SELECT recipes.*, chefs.name as chef_name FROM recipes "
+        "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id "
+        f"WHERE recipes.chef_id = {search['chef-id']};"
+        )
+        return execute_query(mysql, query)
 
-    return {'test' : 5}
+    # Handles if chef is empty but recipe name is filled out
+    elif search['chef-id'] == "" and search['recipe_name'] != "":
+        query = (
+        "SELECT recipes.*, chefs.name as chef_name FROM recipes "
+        "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id "
+        f"WHERE recipes.name LIKE '%{search['recipe_name']}%'"
+        )
+        return execute_query(mysql, query)
+
+    # Handles if both recipe name and chef are selected for search
+    else:
+
+        query = (
+        "SELECT recipes.*, chefs.name as chef_name FROM recipes "
+        "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id "
+        f"WHERE recipes.chef_id = {search['chef-id']} AND recipes.name LIKE '%{search['recipe_name']}%'"
+        )
+
+        return execute_query(mysql, query)
 
 def insert_recipe(mysql, recipe):
     """Inserts a recipe into the recipes table.  Must provide a recipe dictionary that contains the table attributes."""
