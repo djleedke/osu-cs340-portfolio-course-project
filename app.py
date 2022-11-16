@@ -166,13 +166,29 @@ def recipes():
     #context = db.get_all_recipes(mysql)
     return render_template('pages/recipes.html', context=context)
 
-@app.route('/recipes/search', methods=['POST'])
+@app.route('/recipes/search', methods=['GET'])
 def search_recipe():
 
-    search = dict(request.form)
-    results = db.search_recipe(mysql, search)
+    search = {
+        'chef-id' : request.args.get('chef-id'),
+        'recipe_name' : request.args.get('recipe_name')
+    }
 
-    return results
+    context = {
+        'recipes' : db.search_recipe(mysql, search),
+        'chefs' : db.get_all_chefs(mysql)
+    }
+
+    # There's a bug where if no recipe is found, it returns 0 for context['recipes']
+    # So this code below handles that in an unelegeant way...
+    if context['recipes'] == 0:
+        
+        search['chef-id'] = ""
+        search['recipe_name'] = ""
+        context['recipes'] = db.search_recipe(mysql, search)
+
+    
+    return render_template('pages/recipes.html', context=context)
 
 @app.route('/recipes/insert', methods=['POST'])
 def insert_recipe():
