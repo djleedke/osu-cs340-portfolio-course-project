@@ -2,6 +2,12 @@
 
 // Setting up onchange listeners for our update forms (to fill them in dynamically)
 
+// Reference: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+// Scope: Line
+// Date: 11/6/2022
+// Originality: Adapted
+// Utlized and adapted fetch example for use in functions below:
+
 if(document.getElementById('updateChef')){
     document.getElementById('updateChef').onchange = function() {
 

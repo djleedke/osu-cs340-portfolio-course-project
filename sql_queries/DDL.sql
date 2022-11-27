@@ -1,4 +1,13 @@
 
+-- DDL that creates and inserts sample data for the following tables:
+-- chefs
+-- dishes
+-- dish_has_recipe
+-- ingredients
+-- recipes
+-- recipe_has_ingredient
+-- restaurants
+
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 

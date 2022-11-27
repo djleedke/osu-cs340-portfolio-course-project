@@ -1,6 +1,6 @@
 -- The character ':' will be used to denote variables that will be passed into the query.
 
------ Restaurants Table -----
+----- restaurants Table -----
 
 -- get all restaurants
 SELECT * FROM restaurants;
@@ -24,7 +24,7 @@ WHERE restaurant_id = :restaurant_id_from_input;
 DELETE FROM restaurants WHERE restaurant_id = :restaurant_id_from_input;
 
 
------ Chefs Table -----
+----- chefs Table -----
 
 -- get all chefs
 SELECT * FROM chefs;
@@ -55,7 +55,7 @@ WHERE chef_id = :chef_id_from_input;
 DELETE FROM chefs WHERE chef_id = :chef_id_from_input;
 
 
------ Recipes Table -----
+----- recipes Table -----
 
 -- get all recipes
 SELECT * FROM recipes;
@@ -81,7 +81,7 @@ WHERE recipe_id = :recipe_id_input;
 DELETE FROM recipes WHERE recipe_id = :recipe_id_from_input;
 
 
------ Ingredients Table -----
+----- ingredients Table -----
 
 -- get all ingredients
 SELECT * FROM ingredients;
@@ -105,7 +105,7 @@ DELETE FROM ingredients
 WHERE ingredient_id = :ingredient_id_input;
 
 
------ Dishes Table -----
+----- dishes Table -----
 
 -- get all dishes
 SELECT * FROM dishes;
@@ -124,7 +124,7 @@ DELETE FROM dishes
 WHERE dish_id = :dish_id_input;
 
 
------ Recipe_Has_Ingredient Table -----
+----- recipe_has_ingredient Table -----
 
 -- get table
 SELECT * FROM recipe_has_ingredient;
@@ -149,7 +149,7 @@ DELETE FROM recipe_has_ingredient
 WHERE recipe_id = :recipe_id_input AND ingredient_id = :ingredient_id_input;
 
 
------ Dish_Has_Recipe Table -----
+----- dish_has_recipe Table -----
 
 -- get table
 SELECT * FROM dish_has_recipe;
