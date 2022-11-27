@@ -4,6 +4,12 @@ import config, database as db
 
 app = Flask(__name__)
 
+# Reference: https://github.com/osu-cs340-ecampus/flask-starter-app
+# Scope: Line
+# Date: 10/23/2022
+# Originality: Adapted
+# Utilized example to get initial db connection up and running
+
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
 app.config['MYSQL_USER'] = config.MYSQL_USER
 app.config['MYSQL_PASSWORD'] = config.MYSQL_PASSWORD
@@ -84,7 +90,9 @@ def dishes():
 def insert_dish():
 
     # Reference: https://www.geeksforgeeks.org/how-to-get-data-from-immutablemultidict-in-flask/
-    # Date Accessed: 11/13/2022
+    # Scope: Line
+    # Date: 11/13/2022
+    # Originality: Adapted
     # Referenced to get the list of recipes from the form in request.form.getlist('recipes')
 
     dish = {

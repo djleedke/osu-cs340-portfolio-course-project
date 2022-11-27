@@ -225,7 +225,9 @@ def insert_recipe(mysql, recipe):
     """Inserts a recipe into the recipes table.  Must provide a recipe dictionary that contains the table attributes."""
 
     # Reference: https://stackoverflow.com/questions/10950362/protecting-against-sql-injection-in-python
-    # Date Accessed: 11/27/2022
+    # Scope: Line
+    # Date: 11/27/2022
+    # Originality: Adapted
     # Referenced to rework execute_query to prevent sql injection and escape quotes
 
     query = (
