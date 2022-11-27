@@ -60,7 +60,8 @@ CREATE TABLE `dishes` (
 INSERT INTO `dishes` VALUES 
 (1, 3,'Meatloaf w/ Truffle Fries'),
 (2, NULL,'Firecracker Chicken & Steamed White Rice'),
-(3, NULL, 'Chicken Carbonara & Caprese Salad');
+(3, NULL, 'Chicken Carbonara & Caprese Salad'),
+(4, 5, 'Classic Cheeseburger & Truffle Fries');
 
 -- Table structure for table `recipes`
 
@@ -82,13 +83,14 @@ CREATE TABLE `recipes` (
 -- Inserting `recipes` data
 
 INSERT INTO `recipes` VALUES 
-(1, (SELECT chef_id FROM chefs WHERE name='Melissa Mcdonald') ,'Chicken Carbonara','Italian',1,0,NULL),
-(2, (SELECT chef_id FROM chefs WHERE name='Lewis Griffith'),'Meatloaf','American',2,0,NULL),
-(3, (SELECT chef_id FROM chefs WHERE name='Marcos Miller'),'California Rolls','Japanese',1,0,NULL),
-(4, (SELECT chef_id FROM chefs WHERE name='Matt Robins'),'Caprese Salad','Italian',1,1,NULL),
-(5, (SELECT chef_id FROM chefs WHERE name='David Harlan'),'Firecracker Chicken','Asian',5,0,NULL),
-(6, (SELECT chef_id FROM chefs WHERE name='Doug Leedke'),'Truffle Fries','American',1,0,NULL),
-(7, (SELECT chef_id FROM chefs WHERE name='Marcos Miller'),'Steamed White Rice','Asian',1,0,NULL);
+(1, (SELECT chef_id FROM chefs WHERE name='Melissa Mcdonald') ,'Chicken Carbonara','Italian',1,0,"Old McDonald's Carbonara delight."),
+(2, (SELECT chef_id FROM chefs WHERE name='Lewis Griffith'),'Meatloaf','American',2,0, "A good old fashioned American classic, contains meat."),
+(3, (SELECT chef_id FROM chefs WHERE name='Marcos Miller'),'California Rolls','Japanese',1,0,"A sushi roll containing rice, cucumber, and crab."),
+(4, (SELECT chef_id FROM chefs WHERE name='Matt Robins'),'Caprese Salad','Italian',1,1, "A simple italian salad."),
+(5, (SELECT chef_id FROM chefs WHERE name='David Harlan'),'Firecracker Chicken','Asian',5,0, "Chunks of crispy chicken tossed in a sweet and spicy sauce."),
+(6, (SELECT chef_id FROM chefs WHERE name='Doug Leedke'),'Truffle Fries','American',1,0, "French fries prepared in truffle oil."),
+(7, (SELECT chef_id FROM chefs WHERE name='Marcos Miller'),'Steamed White Rice','Asian',1,0, "White rice thas has been steamed."),
+(8, (SELECT chef_id FROM chefs WHERE name='Doug Leedke'),'Classic Cheeseburger','American',1,0, "Every menu needs a burger.");
 
 -- Table structure for table `dish_has_recipe`
 
@@ -107,6 +109,8 @@ CREATE TABLE `dish_has_recipe` (
 
 INSERT INTO `dish_has_recipe` VALUES 
 ((SELECT dish_id FROM dishes WHERE name='Meatloaf w/ Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Meatloaf')),
+((SELECT dish_id FROM dishes WHERE name='Classic Cheeseburger & Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Classic Cheeseburger')),
+((SELECT dish_id FROM dishes WHERE name='Classic Cheeseburger & Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Truffle Fries')),
 ((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Firecracker Chicken')),
 ((SELECT dish_id FROM dishes WHERE name='Meatloaf w/ Truffle Fries'), (SELECT recipe_id FROM recipes WHERE name='Truffle Fries')),
 ((SELECT dish_id FROM dishes WHERE name='Firecracker Chicken & Steamed White Rice'), (SELECT recipe_id FROM recipes WHERE name='Steamed White Rice')),
@@ -134,7 +138,11 @@ INSERT INTO `ingredients` VALUES
 (4,'White Rice','Grain'),
 (5,'Crab','Protein'),
 (6,'Water','Other'),
-(7,'Garlic','Herbs & Spices');
+(7,'Garlic','Herbs & Spices'),
+(8, 'Cucumber', 'Fruits & Vegetables'),
+(9, 'Ground Beef', 'Protein'),
+(10, 'Mozzarella', 'Dairy'),
+(11, 'Tomato', 'Fruits & Vegetables');
 
 -- Table structure for table `recipe_has_ingredient`
 
@@ -159,7 +167,13 @@ INSERT INTO `recipe_has_ingredient` VALUES
 ((SELECT recipe_id FROM recipes WHERE name='Chicken Carbonara'), (SELECT ingredient_id FROM ingredients WHERE name='Egg'),3,'units'),
 ((SELECT recipe_id FROM recipes WHERE name='California Rolls'), (SELECT ingredient_id FROM ingredients WHERE name='White Rice'),2,'cups'),
 ((SELECT recipe_id FROM recipes WHERE name='California Rolls'), (SELECT ingredient_id FROM ingredients WHERE name='Crab'),8,'pieces'),
-((SELECT recipe_id FROM recipes WHERE name='Steamed White Rice'), (SELECT ingredient_id FROM ingredients WHERE name='White Rice'),2,'cups');
+((SELECT recipe_id FROM recipes WHERE name='California Rolls'), (SELECT ingredient_id FROM ingredients WHERE name='Cucumber'),.5,'cups'),
+((SELECT recipe_id FROM recipes WHERE name='Classic Cheeseburger'), (SELECT ingredient_id FROM ingredients WHERE name='Ground Beef'), .25,'lb'),
+((SELECT recipe_id FROM recipes WHERE name='Firecracker Chicken'), (SELECT ingredient_id FROM ingredients WHERE name='Chicken Breast'), 1,'lb'),
+((SELECT recipe_id FROM recipes WHERE name='Meatloaf'), (SELECT ingredient_id FROM ingredients WHERE name='Ground Beef'), 1,'lb'),
+((SELECT recipe_id FROM recipes WHERE name='Steamed White Rice'), (SELECT ingredient_id FROM ingredients WHERE name='White Rice'),2,'cups'),
+((SELECT recipe_id FROM recipes WHERE name='Caprese Salad'), (SELECT ingredient_id FROM ingredients WHERE name='Mozzarella'),12,'oz'),
+((SELECT recipe_id FROM recipes WHERE name='Caprese Salad'), (SELECT ingredient_id FROM ingredients WHERE name='Tomato'), 1,'cups');
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

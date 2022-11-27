@@ -193,21 +193,20 @@ def get_all_recipes(mysql):
 
 def search_recipe(mysql, search):
 
-    # Handles if recipe name is empty (or both name and chef are empty)
-    if search['recipe_name'] == "":
-        query = (
-        "SELECT recipes.*, chefs.name as chef_name FROM recipes "
-        "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id "
-        f"WHERE recipes.chef_id = {search['chef-id']};"
-        )
-        return execute_query(mysql, query)
-
     # Handles if chef is empty but recipe name is filled out
-    elif search['chef-id'] == "" and search['recipe_name'] != "":
+    if search['chef-id'] == "":
         query = (
         "SELECT recipes.*, chefs.name as chef_name FROM recipes "
         "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id "
         f"WHERE recipes.name LIKE '%{search['recipe_name']}%'"
+        )
+        return execute_query(mysql, query)
+
+    elif search['recipe_name'] == "":
+        query = (
+        "SELECT recipes.*, chefs.name as chef_name FROM recipes "
+        "LEFT JOIN chefs ON recipes.chef_id=chefs.chef_id "
+        f"WHERE recipes.chef_id={search['chef-id']};"
         )
         return execute_query(mysql, query)
 
