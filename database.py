@@ -1,6 +1,12 @@
 
 def execute_query(mysql, query, values=None):
     """Wrapper function to assist with querying the database."""
+
+    # Reference: https://github.com/osu-cs340-ecampus/flask-starter-app
+    # Scope: Line
+    # Date: 10/23/2022
+    # Originality: Adapted
+    # Adapted database connection and query execution example to create this function.
     
     data = {}
 
