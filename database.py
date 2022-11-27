@@ -1,12 +1,17 @@
 
-def execute_query(mysql, query):
+def execute_query(mysql, query, values=None):
     """Wrapper function to assist with querying the database."""
     
     data = {}
 
     try:
         cursor = mysql.connection.cursor()
-        cursor.execute(query)
+
+        if(values):
+            cursor.execute(query, values)
+        else:
+            cursor.execute(query)
+        
         data = cursor.fetchall()
 
         # If it was an insert no data will be returned, returning
@@ -220,12 +225,18 @@ def search_recipe(mysql, search):
 def insert_recipe(mysql, recipe):
     """Inserts a recipe into the recipes table.  Must provide a recipe dictionary that contains the table attributes."""
 
+    # Reference: https://stackoverflow.com/questions/10950362/protecting-against-sql-injection-in-python
+    # Date Accessed: 11/27/2022
+    # Referenced to rework execute_query to prevent sql injection and escape quotes
+
     query = (
         "INSERT INTO recipes (name, chef_id, cuisine, heat_level, gluten_free, description)"
-        f" VALUES ('{recipe['name']}', {recipe['chef']}, '{recipe['cuisine']}', {recipe['heat_level']}, '{recipe['gluten_free']}', '{recipe['description']}');"
+        " VALUES (%s, %s, %s, %s, %s, %s);"
     )
 
-    return execute_query(mysql, query)
+    values = (recipe['name'], recipe['chef'], recipe['cuisine'], recipe['heat_level'], recipe['gluten_free'], recipe['description'])
+
+    return execute_query(mysql, query, values)
 
 def delete_recipe(mysql, recipe_id):
     """Deletes a recipe from the recipes table for the specified recipe_id."""

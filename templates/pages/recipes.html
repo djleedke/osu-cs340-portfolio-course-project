@@ -28,11 +28,11 @@
                             </div>
                             <div class="col-lg-4 col-12">
                                 <label for="name">Recipe Name</label>
-                                <input type="text" name="name" class="form-control" id="inputRecipeName" required>
+                                <input type="text" name="name" class="form-control" id="inputRecipeName" autocomplete="off" required>
                             </div>
                             <div class="col-lg-4 col-12">
                                 <label for="cuisine">Cuisine</label>
-                                <input type="text" name = "cuisine" class="form-control" id="inputCuisine" required>
+                                <input type="text" name = "cuisine" class="form-control" id="inputCuisine" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -69,29 +69,29 @@
                 <div class="card card-body">
                     <h5 class="card-title">Search by Chef</h5>
                     <form action="{{ url_for('search_recipe')}}" method="GET" class="mt-3">
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="chef-id">Chef</label>
-                            <select id="inputChef" name = "chef-id" class="form-select" required>
-                                <option value="" selected disabled hidden>Choose...</option>
-                                <option value="">None</option>
-                                {% for row in context.chefs %}
-                                    <option value="{{row.chef_id}}">{{row.name}}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="chef-id">Chef</label>
+                                <select id="inputChef" name = "chef-id" class="form-select" required>
+                                    <option value="" selected disabled hidden>Choose...</option>
+                                    <option value="">All</option>
+                                    {% for row in context.chefs %}
+                                        <option value="{{row.chef_id}}">{{row.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label for="recipe_name">Recipe Name</label>
+                                <input type="text" name="recipe_name" class="form-control" id="inputCuisine" autocomplete="off">
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <label for="recipe_name">Recipe Name</label>
-                            <input type="text" name="recipe_name" class="form-control" id="inputCuisine">
+                        <div class="row">
+                            <div class="d-flex flex-row-reverse col-12">
+                                <button type="submit" class="btn btn-primary mt-3">Search</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="d-flex flex-row-reverse col-12">
-                            <button type="submit" class="btn btn-primary mt-3">Search</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
     </div>
@@ -120,7 +120,11 @@
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.cuisine }}</td>
                                 <td>{{ row.heat_level }}</td>
-                                <td>{{ row.gluten_free }}</td>
+                                {% if row.gluten_free == 0 %}
+                                    <td>False</td>
+                                {% else %}
+                                    <td>True</td>
+                                {% endif %}
                                 <td>{{ row.description }}</td>
                                 <td>
                                     <button id="delete-recipe" type="button" class="btn btn-danger btn-sm" onclick="deleteRecipe({{row.recipe_id}});">Delete</button>
