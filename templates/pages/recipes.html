@@ -10,6 +10,9 @@
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#searchByChef" aria-expanded="false" aria-controls="searchByChef">
                 Search By Chef
             </button>
+            <button onclick="location.href='/recipes';" class="btn btn-secondary float-end" type="button" aria-expanded="false" aria-controls="refreshPage">
+                Refresh
+            </button>
         </div>
         <div class="collapse show" id="insertRecipe" data-bs-parent="#action-group">
             <div class="col-12 mt-3">
@@ -38,12 +41,12 @@
                         <div class="row mt-2">
                             <div class="col-6">
                                 <label for="heat_level">Heat Level</label>
-                                <input type="number" min="1" max="5" name="heat_level" class="form-control" id="inputHeatLevel" required>
+                                <input type="number" min="1" max="5" name="heat_level" class="form-control" id="inputHeatLevel">
                             </div>
                             <div class="col-6">
                                 <label for="gluten-free">Gluten Free</label>
-                                <select id="inputGlutenFree" name="gluten_free" class="form-select">
-                                    <option selected>Choose...</option>
+                                <select id="inputGlutenFree" name="gluten_free" class="form-select" required>
+                                    <option value="" selected>Choose...</option>
                                     <option>True</option>
                                     <option>False</option>
                                 </select>

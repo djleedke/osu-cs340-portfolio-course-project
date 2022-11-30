@@ -236,13 +236,16 @@ def insert_recipe(mysql, recipe):
     # Originality: Adapted
     # Referenced to rework execute_query to prevent sql injection and escape quotes
 
+    if(recipe['heat_level'] == ''):
+        recipe['heat_level'] = None
+
     query = (
         "INSERT INTO recipes (name, chef_id, cuisine, heat_level, gluten_free, description)"
         " VALUES (%s, %s, %s, %s, %s, %s);"
     )
 
     values = (recipe['name'], recipe['chef'], recipe['cuisine'], recipe['heat_level'], recipe['gluten_free'], recipe['description'])
-
+    
     return execute_query(mysql, query, values)
 
 def delete_recipe(mysql, recipe_id):
